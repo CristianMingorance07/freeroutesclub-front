@@ -1,0 +1,139 @@
+:root {
+    /* Colores corporativos */
+    --primary-color: #08338F; /* Azul oscuro corporativo */
+    --secondary-color: #3B74BF; /* Azul claro corporativo */
+    --accent-color: #ED0874; /* Rosa corporativo */
+    --background-color: #FFFFFF; /* Blanco */
+    --text-color: #171717; /* Negro corporativo */
+    --muted-color: #64748b; /* Gris claro para texto secundario */
+
+    /* Espaciados globales */
+    --spacing-small: 8px;
+    --spacing-medium: 16px;
+    --spacing-large: 24px;
+
+    /* Tipografía global */
+    --font-primary: 'Roboto', sans-serif;
+    --font-secondary: 'Inter', sans-serif;
+
+    /* Tamaños de fuente */
+    --font-size-small: 0.875rem; /* 14px */
+    --font-size-medium: 1rem; /* 16px */
+    --font-size-large: 1.25rem; /* 20px */
+    --font-size-xlarge: 1.5rem; /* 24px */
+}
+
+body {
+    font-family: var(--font-primary);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Encabezados */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--primary-color);
+    margin: 0;
+    font-family: var(--font-secondary);
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: 2.5rem; /* 40px */
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 2rem; /* 32px */
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 1.75rem; /* 28px */
+    font-weight: 500;
+}
+
+/* Párrafos y texto */
+p {
+    font-size: var(--font-size-medium);
+    margin-bottom: var(--spacing-medium);
+    color: var(--text-color);
+}
+
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+    color: var(--secondary-color);
+}
+
+/* Botones */
+button {
+    font-family: var(--font-secondary);
+    background-color: var(--accent-color);
+    color: var(--background-color);
+    border: none;
+    border-radius: 6px;
+    padding: var(--spacing-small) var(--spacing-medium);
+    font-size: var(--font-size-medium);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+button:active {
+    background-color: var(--primary-color);
+    transform: translateY(0);
+}
+
+/* Formularios */
+input, textarea, select {
+    font-family: var(--font-primary);
+    border: 1px solid var(--muted-color);
+    border-radius: 4px;
+    padding: var(--spacing-small);
+    font-size: var(--font-size-medium);
+    color: var(--text-color);
+    background-color: var(--background-color);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+/* Espaciados globales */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-medium);
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}

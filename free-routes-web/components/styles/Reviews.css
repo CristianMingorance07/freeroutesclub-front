@@ -1,0 +1,60 @@
+.reviews {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem; /* Espaciado entre las tarjetas */
+    margin-top: 2rem;
+    padding: 0 var(--spacing-medium); /* Espaciado lateral en pantallas pequeñas */
+}
+
+.review-card {
+    background-color: var(--background-color);
+    border-radius: 16px; /* Esquinas ligeramente más redondeadas */
+    padding: 1.5rem;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Sombra más suave */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05); /* Línea sutil */
+}
+
+.review-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Sombra más intensa al hover */
+}
+
+.review-card .review-author {
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: var(--font-size-medium);
+    margin-bottom: 0.5rem;
+}
+
+.review-card .review-rating {
+    color: #fbbf24; /* Amarillo dorado */
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem; /* Aumenta ligeramente el tamaño */
+}
+
+.review-card .review-comment {
+    color: var(--text-color);
+    font-size: var(--font-size-small);
+    line-height: 1.6;
+    margin-top: 0.5rem;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .reviews {
+        gap: 1rem; /* Reduce el espacio entre tarjetas */
+    }
+
+    .review-card {
+        padding: 1rem;
+    }
+
+    .review-card .review-author {
+        font-size: 1rem; /* Ajusta el tamaño de fuente */
+    }
+
+    .review-card .review-comment {
+        font-size: 0.8rem;
+    }
+}
