@@ -8,6 +8,8 @@ import ImageGallery from "@/components/ImageGallery";
 import FlipClock from "@/components/common/FlipClock";
 import ResettableMap from "@/components/ResettableMap";
 import ItineraryDayDetails from "@/components/ItineraryDayDetails";
+import { FaWhatsapp } from "react-icons/fa";
+import Container from "@/components/common/Cointainer";
 
 export default function TripDetailPage() {
   const { selectedTrip } = useTripContext();
@@ -42,6 +44,7 @@ export default function TripDetailPage() {
 
   const [isButtonVisible, setIsButtonVisible] = useState(false);
   const reserveButtonRef = useRef<HTMLButtonElement | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     if (!selectedTrip) {
@@ -55,6 +58,18 @@ export default function TripDetailPage() {
         });
     }
   }, [selectedTrip]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -75,10 +90,6 @@ export default function TripDetailPage() {
     };
   }, []);
 
-  const discountedPrice = trip.promotions?.isActive
-    ? (trip.price - (trip.price * trip.promotions.discount) / 100).toFixed(2)
-    : null;
-
   const fadeInUp = {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0 },
@@ -93,10 +104,9 @@ export default function TripDetailPage() {
   };
 
   return (
-    <section className="trip-detail-page bg-gradient-to-br from-[#0F172A] to-[#1E293B] text-white">
-      {/* Hero Section */}
-      <motion.div
-        className=""
+    <section className="trip-detail-page bg-gradient-to-br from-[#f9fafb] to-[#e3e8f1] text-white">
+      <motion.section
+        id="trip-hero"
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1 }}
@@ -105,7 +115,7 @@ export default function TripDetailPage() {
           className={`absolute h-[30rem] w-full bg-cover bg-center`}
           style={{
             backgroundImage: `url(${trip.images[0] || "/placeholder.jpg"})`,
-            filter: "opacity(0.7)",
+            filter: "brightness(0.7) opacity(0.9)",
           }}
         ></div>
         <div className="relative z-10 mx-auto flex h-[30rem] max-w-6xl flex-col items-center justify-center px-4 text-center">
@@ -118,18 +128,15 @@ export default function TripDetailPage() {
           >
             {trip.title}
           </motion.h1>
-          <motion.h4 className="drop-shadow-lg">
+
+          <motion.h3 className="drop-shadow-lg">
             La aventura de tu vida empieza en...
-          </motion.h4>
+          </motion.h3>
 
           <FlipClock departure={trip.departure} />
           <motion.button
             ref={reserveButtonRef}
-            onClick={() =>
-              router.push(
-                `/trips/${trip._id}/reserve?discountedPrice=${discountedPrice || trip.price}`,
-              )
-            }
+            onClick={() => router.push(`/trips/${trip._id}/reserve`)}
             className="mt-6 rounded-full bg-gradient-to-r from-[#ED0874] to-[#3B74BF] px-6 py-3 text-base text-white shadow-lg transition-transform hover:scale-105 sm:mt-8 sm:px-8 sm:py-3 sm:text-xl"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
@@ -137,58 +144,108 @@ export default function TripDetailPage() {
             ¡Reserva Ahora!
           </motion.button>
         </div>
-      </motion.div>
+      </motion.section>
 
-      <motion.p
-        className="mx-auto max-w-3xl p-4 text-base text-gray-200 sm:mb-12 sm:text-xl"
+      <motion.section
+        id="trip-description"
+        className="mx-auto max-w-3xl p-4 text-base text-[#0F172A] sm:mb-12 sm:text-xl"
         variants={fadeInUp}
         initial="hidden"
         animate="visible"
         transition={{ duration: 0.8, delay: 0.2 }}
       >
-        {trip.description}
-      </motion.p>
+        <p>{trip.description}</p>
+      </motion.section>
+      {isMobile ? (
+        <>
+          <motion.section
+            id="trip-itinerary"
+            className="section bg-[#0F172A] p-6 shadow-md sm:my-12 sm:p-10"
+            variants={fadeInUp}
+            initial="hidden"
+            animate="visible"
+          >
+            <Container>
+              <h2 className="mb-4 text-2xl font-bold text-[#FFDD00] sm:mb-6 sm:text-3xl">
+                Itinerario 🛣️
+              </h2>
+              <ul className="space-y-6 sm:space-y-8">
+                {trip.itinerary.map((day) => (
+                  <ItineraryDayDetails key={day.day} day={day} />
+                ))}
+              </ul>
+            </Container>
+          </motion.section>
 
-      {/* Itinerario Épico */}
-      <motion.div
-        className="section mx-auto my-8 max-w-5xl rounded-xl bg-[#0F172A] p-6 shadow-md sm:my-12 sm:p-10"
-        variants={staggerContainer}
-        initial="hidden"
-        animate="visible"
-      >
-        <h2 className="mb-4 text-2xl font-bold text-[#FFDD00] sm:mb-6 sm:text-4xl">
-          Itinerario 🛣️
-        </h2>
-        <ul className="space-y-6 sm:space-y-8">
-          {trip.itinerary.map((day) => (
-            <ItineraryDayDetails key={day.day} day={day} />
-          ))}
-        </ul>
-      </motion.div>
+          <motion.section
+            id="trip-map"
+            className="section my-8 bg-[#0F172A] p-6 shadow-md sm:my-12 sm:p-10"
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+          >
+            <Container>
+              <h2 className="mb-4 text-2xl font-bold text-[#FFDD00] sm:mb-6 sm:text-3xl">
+                Ubicación 📍
+              </h2>
+              <p className="mb-4 text-sm text-gray-200 sm:mb-6">
+                Explora la ubicación donde comienza tu próxima gran aventura.
+                Este es el lugar donde los sueños toman vida.
+              </p>
+              <ResettableMap
+                position={[trip.coordinates.lat, trip.coordinates.lng]}
+              />
+            </Container>
+          </motion.section>
+        </>
+      ) : (
+        <div className="bg-[#0F172A] p-6 shadow-md sm:my-12 sm:p-10">
+          <div className="mx-auto flex max-w-7xl justify-between">
+            <motion.section
+              id="trip-itinerary"
+              className="w-1/2 pr-6"
+              variants={fadeInUp}
+              initial="hidden"
+              animate="visible"
+            >
+              <h2 className="mb-4 text-2xl font-bold text-[#FFDD00] sm:mb-6 sm:text-3xl">
+                Itinerario 🛣️
+              </h2>
+              <ul className="space-y-6 sm:space-y-8">
+                {trip.itinerary.map((day) => (
+                  <ItineraryDayDetails key={day.day} day={day} />
+                ))}
+              </ul>
+            </motion.section>
 
-      {/* Mapa Interactivo */}
-      <motion.div
-        className="section mx-auto my-8 max-w-6xl rounded-xl bg-[#0F172A] p-6 shadow-md sm:my-12 sm:p-10"
-        variants={fadeInUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        transition={{ duration: 1 }}
-      >
-        <h2 className="mb-4 text-2xl font-bold text-[#FFDD00] sm:mb-6 sm:text-4xl">
-          Ubicación 📍
-        </h2>
-        <p className="mb-4 text-sm text-gray-200 sm:mb-6 sm:text-lg">
-          Explora la ubicación donde comienza tu próxima gran aventura. Este es
-          el lugar donde los sueños toman vida.
-        </p>
-        <ResettableMap
-          position={[trip.coordinates.lat, trip.coordinates.lng]}
-        />
-      </motion.div>
+            <motion.section
+              id="trip-map"
+              className="w-1/2"
+              variants={fadeInUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ duration: 1 }}
+            >
+              <h2 className="mb-4 text-2xl font-bold text-[#FFDD00] sm:mb-6 sm:text-3xl">
+                Ubicación 📍
+              </h2>
+              <p className="mb-4 text-sm text-gray-200 sm:mb-6">
+                Explora la ubicación donde comienza tu próxima gran aventura.
+                Este es el lugar donde los sueños toman vida.
+              </p>
+              <ResettableMap
+                position={[trip.coordinates.lat, trip.coordinates.lng]}
+              />
+            </motion.section>
+          </div>
+        </div>
+      )}
 
-      {/* Preguntas Frecuentes */}
-      <motion.div
+      <motion.section
+        id="faq"
         className="section mx-auto my-8 max-w-6xl rounded-xl bg-white p-6 text-center shadow-md sm:my-12 sm:p-10"
         variants={fadeInUp}
         initial="hidden"
@@ -207,27 +264,26 @@ export default function TripDetailPage() {
             </li>
           ))}
         </ul>
-      </motion.div>
+      </motion.section>
 
-      {/* Botón Fijo */}
       <AnimatePresence>
         {isButtonVisible && (
           <motion.div
-            className="fixed bottom-4 left-1/2 z-[1000] flex -translate-x-1/2 transform flex-col items-center gap-2 sm:left-auto sm:right-4 sm:translate-x-0 sm:flex-row sm:gap-4"
+            id="reserve-fixed"
+            className="fixed bottom-0 z-[1000] flex w-full -translate-x-1/2 transform items-center justify-between gap-2 bg-white px-4 py-10 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] sm:bottom-4 sm:right-4 sm:w-96 sm:flex-col sm:rounded-xl"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="rounded-lg bg-[#ED0874] px-3 py-1 text-center text-xs text-white shadow-md sm:px-4 sm:py-2 sm:text-sm">
-              ¡Solo quedan {trip.availability.spotsLeft} plazas!
-            </div>
+            <FaWhatsapp className="absolute -top-7 size-16 rounded-full bg-green-500 p-3 text-white shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] sm:-left-4" />
+            <p className="text-[#ED0874]">
+              ¡Solo quedan{" "}
+              <span className="font-bold">{trip.availability.spotsLeft}</span>{" "}
+              plazas!
+            </p>
             <motion.button
-              onClick={() =>
-                router.push(
-                  `/trips/${trip._id}/reserve?discountedPrice=${discountedPrice || trip.price}`,
-                )
-              }
+              onClick={() => router.push(`/trips/${trip._id}/reserve`)}
               className="rounded-full bg-gradient-to-r from-[#ED0874] to-[#3B74BF] px-6 py-2 text-sm text-white shadow-lg transition-transform hover:scale-105 sm:px-8 sm:py-3 sm:text-lg"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, MotionProps } from "framer-motion";
 
 export default function ItineraryDayDetails({
   day,
@@ -39,8 +39,10 @@ export default function ItineraryDayDetails({
             <line x1="5" y1="12" x2="19" y2="12" />
           </svg>
         </button>
-        <h3 className="text-lg font-bold sm:text-2xl">
-          {`Día ${day.day}:`}<span className="font-normal ml-4">{`${day.title}`}</span>
+
+        <h3 className="text-lg font-bold">
+          {`Día ${day.day}:`}
+          <span className="ml-4 font-normal">{`${day.title}`}</span>
         </h3>
       </div>
       <AnimatePresence>
@@ -50,7 +52,7 @@ export default function ItineraryDayDetails({
             initial="hidden"
             animate="visible"
             exit="hidden"
-            className="mt-2 text-sm text-gray-300 sm:text-lg"
+            className="mt-2 text-sm text-gray-300"
           >
             {day.description}
           </motion.p>
