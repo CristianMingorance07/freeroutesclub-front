@@ -44,7 +44,6 @@ export default function TripDetailPage() {
 
   const [isButtonVisible, setIsButtonVisible] = useState(false);
   const reserveButtonRef = useRef<HTMLButtonElement | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     if (!selectedTrip) {
@@ -58,18 +57,6 @@ export default function TripDetailPage() {
         });
     }
   }, [selectedTrip]);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 640);
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -156,93 +143,47 @@ export default function TripDetailPage() {
       >
         <p>{trip.description}</p>
       </motion.section>
-      {isMobile ? (
-        <>
+      <div className="bg-[#0F172A] p-6 shadow-md sm:my-12 sm:p-10">
+        <div className="mx-auto flex max-w-7xl flex-col justify-center gap-9 lg:flex-row lg:justify-between lg:gap-4">
           <motion.section
             id="trip-itinerary"
-            className="section bg-[#0F172A] p-6 shadow-md sm:my-12 sm:p-10"
+            className="w-full"
             variants={fadeInUp}
             initial="hidden"
             animate="visible"
           >
-            <Container>
-              <h2 className="mb-4 text-2xl font-bold text-[#FFDD00] sm:mb-6 sm:text-3xl">
-                Itinerario 🛣️
-              </h2>
-              <ul className="space-y-6 sm:space-y-8">
-                {trip.itinerary.map((day) => (
-                  <ItineraryDayDetails key={day.day} day={day} />
-                ))}
-              </ul>
-            </Container>
+            <h2 className="mb-4 text-2xl font-bold text-[#FFDD00] sm:mb-6 sm:text-3xl">
+              Itinerario 🛣️
+            </h2>
+            <ul className="space-y-6 sm:space-y-8">
+              {trip.itinerary.map((day) => (
+                <ItineraryDayDetails key={day.day} day={day} />
+              ))}
+            </ul>
           </motion.section>
 
           <motion.section
             id="trip-map"
-            className="section my-8 bg-[#0F172A] p-6 shadow-md sm:my-12 sm:p-10"
+            className="w-full sm:min-w-96"
             variants={fadeInUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             transition={{ duration: 1 }}
           >
-            <Container>
-              <h2 className="mb-4 text-2xl font-bold text-[#FFDD00] sm:mb-6 sm:text-3xl">
-                Ubicación 📍
-              </h2>
-              <p className="mb-4 text-sm text-gray-200 sm:mb-6">
-                Explora la ubicación donde comienza tu próxima gran aventura.
-                Este es el lugar donde los sueños toman vida.
-              </p>
-              <ResettableMap
-                position={[trip.coordinates.lat, trip.coordinates.lng]}
-              />
-            </Container>
+            <h2 className="mb-4 text-2xl font-bold text-[#FFDD00] sm:mb-6 sm:text-3xl">
+              Ubicación 📍
+            </h2>
+            <p className="mb-4 text-sm text-gray-200 sm:mb-6">
+              Explora la ubicación donde comienza tu próxima gran aventura. Este
+              es el lugar donde los sueños toman vida.
+            </p>
+            <ResettableMap
+              position={[trip.coordinates.lat, trip.coordinates.lng]}
+            />
           </motion.section>
-        </>
-      ) : (
-        <div className="bg-[#0F172A] p-6 shadow-md sm:my-12 sm:p-10">
-          <div className="mx-auto flex max-w-7xl justify-between">
-            <motion.section
-              id="trip-itinerary"
-              className="w-1/2 pr-6"
-              variants={fadeInUp}
-              initial="hidden"
-              animate="visible"
-            >
-              <h2 className="mb-4 text-2xl font-bold text-[#FFDD00] sm:mb-6 sm:text-3xl">
-                Itinerario 🛣️
-              </h2>
-              <ul className="space-y-6 sm:space-y-8">
-                {trip.itinerary.map((day) => (
-                  <ItineraryDayDetails key={day.day} day={day} />
-                ))}
-              </ul>
-            </motion.section>
-
-            <motion.section
-              id="trip-map"
-              className="w-1/2"
-              variants={fadeInUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              transition={{ duration: 1 }}
-            >
-              <h2 className="mb-4 text-2xl font-bold text-[#FFDD00] sm:mb-6 sm:text-3xl">
-                Ubicación 📍
-              </h2>
-              <p className="mb-4 text-sm text-gray-200 sm:mb-6">
-                Explora la ubicación donde comienza tu próxima gran aventura.
-                Este es el lugar donde los sueños toman vida.
-              </p>
-              <ResettableMap
-                position={[trip.coordinates.lat, trip.coordinates.lng]}
-              />
-            </motion.section>
-          </div>
         </div>
-      )}
+      </div>
 
       <motion.section
         id="faq"
