@@ -9,7 +9,6 @@ import FlipClock from "@/components/common/FlipClock";
 import ResettableMap from "@/components/ResettableMap";
 import ItineraryDayDetails from "@/components/ItineraryDayDetails";
 import { FaWhatsapp } from "react-icons/fa";
-import Container from "@/components/common/Cointainer";
 
 export default function TripDetailPage() {
   const { selectedTrip } = useTripContext();
