@@ -1,17 +1,16 @@
 "use client";
 
-import { useTripContext } from "@/context/TripContext";
+import { useEffect, useState, useRef } from "react";
 import { useParams } from "next/navigation";
 import { ITrip } from "@/models/Trip";
 import Link from "next/link";
-import { useEffect, useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import ImageGallery from "@/components/ImageGallery";
-import FlipClock from "@/components/common/FlipClock";
-import ResettableMap from "@/components/ResettableMap";
-import ItineraryDayDetails from "@/components/ItineraryDayDetails";
 import { FaWhatsapp } from "react-icons/fa";
+import { motion, AnimatePresence } from "framer-motion";
+import FlipClock from "@/components/common/FlipClock";
+import ImageGallery from "@/components/ImageGallery";
+import ItineraryDayDetails from "@/components/ItineraryDayDetails";
 import Loader from "@/components/common/Loader";
+import ResettableMap from "@/components/ResettableMap";
 
 export default function TripDetailPage() {
   const { id: tripId } = useParams();
@@ -58,7 +57,7 @@ export default function TripDetailPage() {
   return (
     <>
       {trip ? (
-        <section className="trip-detail-page bg-gradient-to-br from-[#f9fafb] to-[#e3e8f1] text-white">
+        <section className="trip-detail-page bg-gradient-to-br from-[#f9fafb] to-[#e3e8f1] pb-32 text-white">
           <motion.section
             id="trip-hero"
             initial={{ opacity: 0, scale: 0.95 }}
@@ -68,7 +67,7 @@ export default function TripDetailPage() {
             <div
               className={`absolute h-[30rem] w-full bg-cover bg-center`}
               style={{
-                backgroundImage: `url(${trip.images[0] || "/placeholder.jpg"})`,
+                backgroundImage: `url(${trip.images[0] || "/img/placeholder.webp"})`,
                 filter: "brightness(0.7) opacity(0.9)",
               }}
             ></div>
@@ -103,15 +102,22 @@ export default function TripDetailPage() {
 
           <motion.section
             id="trip-description"
-            className="mx-auto max-w-3xl p-4 text-base text-[#0F172A] sm:mb-12 sm:text-xl"
+            className="p-6 text-base text-[#0F172A] sm:text-xl"
             variants={fadeInUp}
             initial="hidden"
             animate="visible"
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <p>{trip.description}</p>
+            <div className="mx-auto my-9 flex max-w-7xl flex-col gap-6 sm:flex-row">
+              <p>{trip.description}</p>
+              <img
+                className="mx-auto size-1/2"
+                src="/img/placeholder.webp"
+                alt="image"
+              />
+            </div>
           </motion.section>
-          <div className="bg-[#0F172A] p-6 shadow-md sm:my-12 sm:p-10">
+          <div className="bg-[#0F172A] p-6 shadow-md sm:p-10">
             <div className="mx-auto flex max-w-7xl flex-col justify-center gap-9 lg:flex-row lg:justify-between lg:gap-4">
               <motion.section
                 id="trip-itinerary"
@@ -155,17 +161,17 @@ export default function TripDetailPage() {
 
           <motion.section
             id="faq"
-            className="section mx-auto my-8 max-w-6xl rounded-xl bg-white p-6 text-center shadow-md sm:my-12 sm:p-10"
+            className="section mx-auto my-8 max-w-6xl p-6 text-center sm:my-12 sm:p-10"
             variants={fadeInUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             transition={{ duration: 1, delay: 0.3 }}
           >
-            <h2 className="mb-4 text-2xl font-bold text-[#08338F] sm:mb-6 sm:text-4xl">
-              Preguntas Frecuentes ❓
+            <h2 className="mb-4 text-2xl font-bold text-[#0F172A] sm:mb-6 sm:text-4xl">
+              Preguntas Frecuentes
             </h2>
-            <ul className="list-disc space-y-3 pl-4 text-sm text-[#171717] sm:space-y-4 sm:pl-6 sm:text-lg">
+            <ul className="space-y-3 pl-4 text-sm text-[#171717] sm:space-y-4 sm:pl-6 sm:text-lg">
               {trip.faq.map((faqItem, index) => (
                 <li key={index}>
                   <strong>{faqItem.question}</strong>
@@ -179,7 +185,7 @@ export default function TripDetailPage() {
             {isButtonVisible && (
               <motion.div
                 id="reserve-fixed"
-                className="fixed bottom-0 z-[1000] flex w-full -translate-x-1/2 transform items-center justify-between gap-2 bg-white px-4 py-10 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] sm:bottom-4 sm:right-4 sm:w-96 sm:flex-col sm:rounded-xl"
+                className="fixed bottom-0 z-[1000] flex h-32 w-full -translate-x-1/2 transform items-center justify-between gap-2 bg-white px-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] sm:bottom-4 sm:right-4 sm:w-96 sm:flex-col sm:justify-center sm:rounded-xl"
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 50 }}
