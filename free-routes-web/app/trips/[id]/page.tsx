@@ -48,7 +48,7 @@ export default function TripDetailPage() {
         observer.unobserve(reserveButtonRef.current);
       }
     };
-  }, []);
+  }, [trip]);
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 50 },
