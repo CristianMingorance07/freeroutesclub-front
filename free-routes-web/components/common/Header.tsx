@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import logo from "/img/logos/logo-b.png";
+import {useState} from "react";
+import Link from "next/link";
 
 export default function Header() {
   const [showMenu, setShowMenu] = useState(false);
@@ -21,9 +21,9 @@ export default function Header() {
     <header className="sticky top-0 z-50 border-b border-gray-200 bg-white p-4">
       <div className="container flex w-full items-center justify-between sm:mx-auto lg:max-w-7xl">
         <div className="text-xl font-bold">
-          <a href="/">
+          <Link href="/">
             <img src="/img/logos/logo-h.png" alt="logo" className="w-10" />
-          </a>
+          </Link>
         </div>
         <nav className="sm:w-2/3">
           <ul
@@ -47,49 +47,49 @@ export default function Header() {
               </svg>
             </button>
             <li className="w-full border-b-2 border-gray-700 p-4 sm:border-0 sm:p-0">
-              <a
+              <Link
                 onClick={handleCloseMenu}
                 href="/trips"
                 className="text-gray-700 hover:text-black"
               >
                 Rutas
-              </a>
+              </Link>
             </li>
             <li className="w-full border-b-2 border-gray-700 p-4 sm:border-0 sm:p-0">
-              <a
+              <Link
                 onClick={handleCloseMenu}
                 href="/courses"
                 className="text-gray-700 hover:text-black"
               >
                 Cursos
-              </a>
+              </Link>
             </li>
             <li className="w-full border-b-2 border-gray-700 p-4 sm:border-0 sm:p-0">
-              <a
+              <Link
                 onClick={handleCloseMenu}
                 href="/merch"
                 className="text-gray-700 hover:text-black"
               >
                 Merch
-              </a>
+              </Link>
             </li>
             <li className="w-full border-b-2 border-gray-700 p-4 sm:border-0 sm:p-0">
-              <a
+              <Link
                 onClick={handleCloseMenu}
                 href="/community"
                 className="text-gray-700 hover:text-black"
               >
                 Comunidad
-              </a>
+              </Link>
             </li>
             <li className="w-full p-4 sm:p-0">
-              <a
+              <Link
                 onClick={handleCloseMenu}
                 href="/social-media"
                 className="text-gray-700 hover:text-black"
               >
                 Redes
-              </a>
+              </Link>
             </li>
           </ul>
           <button
