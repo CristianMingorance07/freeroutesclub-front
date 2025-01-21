@@ -15,7 +15,7 @@ export default function Map({ position }: { position: [number, number] }) {
     useEffect(() => {
         if (typeof window !== 'undefined') {
             return () => {
-                const container = document.querySelector('.leaflet-container');
+                const container = document?.querySelector('.leaflet-container');
                 if (container?.classList.contains('leaflet-container')) {
                     container.remove();
                 }

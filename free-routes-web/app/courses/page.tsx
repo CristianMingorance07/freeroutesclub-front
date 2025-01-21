@@ -1,11 +1,11 @@
-'use client';
-
 import { useRouter } from 'next/navigation';
-import Lottie from 'lottie-react';
-import constructionAnimation from '@/public/animations/construction.json';
+import dynamic from 'next/dynamic';
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
 export default function CoursesPage() {
     const router = useRouter();
+
+    const constructionAnimation = require('@/public/animations/construction.json');
 
     return (
         <div className="flex flex-col items-center justify-between min-h-screen bg-gradient-to-b from-blue-100 via-white to-blue-300 text-center p-8">
