@@ -2,13 +2,11 @@ import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/dbConnect';
 import Trip from '@/models/Trip';
 
-export async function GET(req: Request, context: { params: { id: string } }) {
+export async function GET(request: Request, { params }: { params: { id: string } }) {
     await dbConnect();
 
     try {
-        const resolvedParams = await context.params; // Resolver la promesa
-        const { id } = resolvedParams;
-
+        const { id } = params;
         const trip = await Trip.findById(id);
         if (!trip) {
             return NextResponse.json({ error: 'Viaje no encontrado' }, { status: 404 });
