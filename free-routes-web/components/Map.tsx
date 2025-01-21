@@ -1,9 +1,8 @@
 'use client'
 
-import { MapContainer, TileLayer, Marker } from 'react-leaflet'
+import {MapContainer, Marker, TileLayer} from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
-import { useEffect } from 'react'
-import L from 'leaflet'
+import {useEffect} from 'react'
 
 export default function Map({ position }: { position: [number, number] }) {
     useEffect(() => {

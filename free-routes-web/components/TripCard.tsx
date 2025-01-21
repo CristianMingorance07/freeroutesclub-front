@@ -1,9 +1,10 @@
 import { ITrip as Trip } from '@/models/Trip';
+import Image from "next/image";
 
 export default function TripCard({ trip }: { trip: Trip }) {
     return (
         <div className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow bg-white h-[420px] w-full flex flex-col">
-            <img
+            <Image
                 src={trip.imageUrl}
                 alt={trip.title}
                 className="w-full h-2/5 object-cover group-hover:scale-105 transition-transform"

@@ -1,7 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { BsXCircle } from 'react-icons/bs';
+import {useRouter} from 'next/navigation';
 import Lottie from 'lottie-react';
 import cancelAnimation from '@/public/animations/cancel.json';
 

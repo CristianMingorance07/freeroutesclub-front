@@ -1,10 +1,10 @@
-import { NextResponse } from 'next/server';
+import {NextResponse} from 'next/server';
 import Stripe from 'stripe';
 import dbConnect from '@/lib/dbConnect';
 import Booking from '@/models/Booking';
 import Trip from '@/models/Trip';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? '', {
     apiVersion: '2022-11-15' as any,
 });
 
@@ -22,13 +22,6 @@ export async function POST(req: Request) {
         const trip = await Trip.findById(tripId);
         if (!trip) throw new Error('Viaje no encontrado.');
 
-        const discountedPrice = trip.promotions?.isActive
-            ? customer.tripPrice * (1 - trip.promotions.discount / 100)
-            : customer.tripPrice;
-
-        const basePrice = customer.hasCompanion
-            ? discountedPrice * 2
-            : discountedPrice;
 
         const amountToCharge = customer.tripPrice;
 
