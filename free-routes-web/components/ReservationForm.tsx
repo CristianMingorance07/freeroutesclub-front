@@ -127,7 +127,7 @@ export default function ReservationForm({
             } else {
                 setCouponError(data.error || 'Error al procesar la reserva.');
             }
-        } catch (err) {
+        } catch {
             setCouponError('Error al procesar la reserva. Inténtalo nuevamente.');
         } finally {
             setLoading(false);

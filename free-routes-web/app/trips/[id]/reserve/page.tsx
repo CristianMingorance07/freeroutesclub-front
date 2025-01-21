@@ -32,7 +32,7 @@ export default function ReserveTripPage({ params }: { params: Promise<{ id: stri
                     dates: data.data.dates,
                     promotions: data.data.promotions,
                 });
-            } catch (err) {
+            } catch {
                 setError('No se pudo cargar la información del viaje. Inténtalo más tarde.');
             } finally {
                 setLoading(false);
