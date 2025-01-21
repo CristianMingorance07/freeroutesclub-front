@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import logo from "/img/logos/logo-b.png";
 
 export default function Header() {
   const [showMenu, setShowMenu] = useState(false);
@@ -20,7 +21,9 @@ export default function Header() {
     <header className="sticky top-0 z-50 border-b border-gray-200 bg-white p-4">
       <div className="container flex w-full items-center justify-between sm:mx-auto lg:max-w-7xl">
         <div className="text-xl font-bold">
-          <a href="/">Free Routes Club</a>
+          <a href="/">
+            <img src="/img/logos/logo-h.png" alt="logo" className="w-10" />
+          </a>
         </div>
         <nav className="sm:w-2/3">
           <ul
@@ -49,7 +52,7 @@ export default function Header() {
                 href="/trips"
                 className="text-gray-700 hover:text-black"
               >
-                Trips
+                Rutas
               </a>
             </li>
             <li className="w-full border-b-2 border-gray-700 p-4 sm:border-0 sm:p-0">
@@ -58,7 +61,7 @@ export default function Header() {
                 href="/courses"
                 className="text-gray-700 hover:text-black"
               >
-                Courses
+                Cursos
               </a>
             </li>
             <li className="w-full border-b-2 border-gray-700 p-4 sm:border-0 sm:p-0">
@@ -76,7 +79,7 @@ export default function Header() {
                 href="/community"
                 className="text-gray-700 hover:text-black"
               >
-                Community
+                Comunidad
               </a>
             </li>
             <li className="w-full p-4 sm:p-0">
@@ -85,11 +88,14 @@ export default function Header() {
                 href="/social-media"
                 className="text-gray-700 hover:text-black"
               >
-                Social Media
+                Redes
               </a>
             </li>
           </ul>
-          <button onClick={() => setShowMenu(true)} className="sm:hidden">
+          <button
+            onClick={() => setShowMenu(true)}
+            className="flex h-full items-center justify-center sm:hidden"
+          >
             <svg
               className="h-8 w-8 text-black"
               fill="none"
@@ -97,9 +103,9 @@ export default function Header() {
               stroke="currentColor"
             >
               <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="M4 6h16M4 12h16M4 18h16"
               />
             </svg>
