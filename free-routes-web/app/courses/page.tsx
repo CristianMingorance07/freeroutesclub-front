@@ -2,16 +2,16 @@
 
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
+import constructionAnimation from '@/public/animations/construction.json';
+
 const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
 export default function CoursesPage() {
     const router = useRouter();
 
-    const constructionAnimation = require('@/public/animations/construction.json');
-
     return (
         <div className="flex flex-col items-center justify-between min-h-screen bg-gradient-to-b from-blue-100 via-white to-blue-300 text-center p-8">
-            {/* Cabecera */}
+            {/* Header */}
             <div className="mb-6">
                 <h1 className="text-4xl font-bold text-gray-800 mb-4 drop-shadow-lg">
                     Cursos en Construcción 🚧
@@ -23,7 +23,7 @@ export default function CoursesPage() {
                 </p>
             </div>
 
-            {/* Animación de Construcción */}
+            {/* Construction Animation */}
             <div className="relative w-full max-w-sm">
                 <Lottie
                     animationData={constructionAnimation}
@@ -32,7 +32,7 @@ export default function CoursesPage() {
                 />
             </div>
 
-            {/* Botón para volver */}
+            {/* Back Button */}
             <div className="mt-10">
                 <button
                     onClick={() => router.push('/')}
@@ -42,7 +42,7 @@ export default function CoursesPage() {
                 </button>
             </div>
 
-            {/* Pie de Página */}
+            {/* Footer */}
             <footer className="mt-8 text-center text-sm text-gray-600">
                 <p className="mb-2">
                     Gracias por tu paciencia mientras creamos algo increíble para ti. 🚀
