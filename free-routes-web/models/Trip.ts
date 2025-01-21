@@ -4,6 +4,7 @@ export interface ITrip extends Document {
     _id: string;
     title: string;
     description: string;
+    shortDescription: string;
     imageUrl: string;
     duration: string;
     price: number;
@@ -18,9 +19,9 @@ export interface ITrip extends Document {
         date: string;
         time: string;
     };
-    dates: { // Nuevo campo
-        start: string; // Fecha de inicio del viaje
-        end: string;   // Fecha de fin del viaje
+    dates: {
+        start: string;
+        end: string;
     };
     benefits: {
         icon: string;
@@ -35,6 +36,8 @@ export interface ITrip extends Document {
         day: number;
         title: string;
         description: string;
+        included: string[];
+        image: string;
     }[];
     logistics: {
         fuelCost: number;
@@ -72,12 +75,79 @@ export interface ITrip extends Document {
     }[];
     acceptedBikes: string[];
     minEngineCapacity: number;
+    sections: {
+        id: string;
+        title: string;
+        content: {
+            paragraphs: string[];
+            list: string[];
+        };
+        images: string[];
+        subsections: {
+            id: string;
+            title: string;
+            content: {
+                paragraphs: string[];
+                list: string[];
+            };
+            images: string[];
+        }[];
+    }[];
+    coordinators: {
+        name: string;
+        description: string;
+        photoUrl: string;
+    }[];
+    additionalDetails: {
+        travelStyle: string;
+        routeDynamics: string;
+        experienceIndicators: {
+            fun: number;
+            difficulty: number;
+            scenery: number;
+            culture: number;
+            gastronomy: number;
+        };
+        equipmentRecommended: {
+            mandatory: string[];
+            optional: string[];
+        };
+        detailedCosts: {
+            transport: number;
+            accommodation: number;
+            meals: number;
+            activities: number;
+            baseCost: number;
+            margin: {
+                percentage: number;
+                total: number;
+            }[];
+        };
+        routeMapLink: string;
+        pointsOfInterest: {
+            name: string;
+            description: string;
+            coordinates: {
+                lat: number;
+                lng: number;
+            };
+        }[];
+        loyaltyProgram: {
+            description: string;
+            benefits: string[];
+        };
+        gallery: {
+            category: string;
+            images: string[];
+        }[];
+    };
 }
 
 const TripSchema: Schema = new Schema(
     {
         title: { type: String, required: true },
         description: { type: String, required: true },
+        shortDescription: { type: String, required: true },
         imageUrl: { type: String, required: true },
         duration: { type: String, required: true },
         price: { type: Number, required: true },
@@ -92,9 +162,9 @@ const TripSchema: Schema = new Schema(
             date: { type: String, required: true },
             time: { type: String, required: true },
         },
-        dates: { // Nuevo campo
-            start: { type: String, required: true }, // Fecha de inicio
-            end: { type: String, required: true },   // Fecha de fin
+        dates: {
+            start: { type: String, required: true },
+            end: { type: String, required: true },
         },
         benefits: [
             {
@@ -112,6 +182,8 @@ const TripSchema: Schema = new Schema(
                 day: { type: Number, required: true },
                 title: { type: String, required: true },
                 description: { type: String, required: true },
+                included: { type: [String], required: true },
+                image: { type: String, required: false },
             },
         ],
         logistics: {
@@ -158,6 +230,84 @@ const TripSchema: Schema = new Schema(
         ],
         acceptedBikes: { type: [String], required: true },
         minEngineCapacity: { type: Number, required: true },
+        sections: [
+            {
+                id: { type: String, required: true },
+                title: { type: String, required: true },
+                content: {
+                    paragraphs: { type: [String], required: false },
+                    list: { type: [String], required: false },
+                },
+                images: { type: [String], required: false },
+                subsections: [
+                    {
+                        id: { type: String, required: true },
+                        title: { type: String, required: true },
+                        content: {
+                            paragraphs: { type: [String], required: false },
+                            list: { type: [String], required: false },
+                        },
+                        images: { type: [String], required: false },
+                    },
+                ],
+            },
+        ],
+        coordinators: [
+            {
+                name: { type: String, required: true },
+                description: { type: String, required: true },
+                photoUrl: { type: String, required: true },
+            },
+        ],
+        additionalDetails: {
+            travelStyle: { type: String, required: true },
+            routeDynamics: { type: String, required: true },
+            experienceIndicators: {
+                fun: { type: Number, required: true },
+                difficulty: { type: Number, required: true },
+                scenery: { type: Number, required: true },
+                culture: { type: Number, required: true },
+                gastronomy: { type: Number, required: true },
+            },
+            equipmentRecommended: {
+                mandatory: { type: [String], required: true },
+                optional: { type: [String], required: false },
+            },
+            detailedCosts: {
+                transport: { type: Number, required: true },
+                accommodation: { type: Number, required: true },
+                meals: { type: Number, required: true },
+                activities: { type: Number, required: true },
+                baseCost: { type: Number, required: true },
+                margin: [
+                    {
+                        percentage: { type: Number, required: true },
+                        total: { type: Number, required: true },
+                    },
+                ],
+            },
+            routeMapLink: { type: String, required: true },
+            pointsOfInterest: [
+                {
+                    name: { type: String, required: true },
+                    description: { type: String, required: true },
+                    coordinates: {
+                        lat: { type: Number, required: true },
+                        lng: { type: Number, required: true },
+                    },
+                },
+            ],
+            loyaltyProgram: {
+                description: { type: String, required: true },
+                benefits: { type: [String], required: true },
+            },
+            gallery: [
+                {
+                    category: { type: String, required: true },
+                    images: { type: [String], required: true },
+                },
+            ],
+        },
     },
     { timestamps: true }
 );
