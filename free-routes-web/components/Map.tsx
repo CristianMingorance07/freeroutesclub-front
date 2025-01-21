@@ -1,18 +1,18 @@
-'use client'
-
-import {MapContainer, Marker, TileLayer} from 'react-leaflet'
-import 'leaflet/dist/leaflet.css'
-import {useEffect} from 'react'
+import { useEffect } from 'react';
+import { MapContainer, Marker, TileLayer } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 
 export default function Map({ position }: { position: [number, number] }) {
     useEffect(() => {
-        return () => {
-            const container = document.querySelector('.leaflet-container')
-            if (container?.classList.contains('leaflet-container')) {
-                container.remove()
-            }
+        if (typeof window !== 'undefined') {
+            return () => {
+                const container = document.querySelector('.leaflet-container');
+                if (container?.classList.contains('leaflet-container')) {
+                    container.remove();
+                }
+            };
         }
-    }, [])
+    }, [position]);
 
     return (
         <div key={position.toString()} className="relative">
@@ -28,5 +28,5 @@ export default function Map({ position }: { position: [number, number] }) {
                 <Marker position={position} />
             </MapContainer>
         </div>
-    )
+    );
 }
