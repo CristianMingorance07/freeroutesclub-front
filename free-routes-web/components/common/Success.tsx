@@ -1,8 +1,7 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { BsCheckCircle } from 'react-icons/bs';
-import { FaWhatsapp } from 'react-icons/fa';
+import {useRouter} from 'next/navigation';
+import {FaWhatsapp} from 'react-icons/fa';
 import Lottie from 'lottie-react';
 import successAnimation from '@/public/animations/success.json';
 
