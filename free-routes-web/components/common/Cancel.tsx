@@ -1,11 +1,15 @@
-'use client';
-
-import {useRouter} from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import Lottie from 'lottie-react';
 import cancelAnimation from '@/public/animations/cancel.json';
 
 export default function Cancel() {
     const router = useRouter();
+    const [isClient, setIsClient] = useState(false);
+
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
 
     if (!router) {
         return null;
@@ -13,7 +17,10 @@ export default function Cancel() {
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-gray-900 to-gray-700 text-white">
-            <Lottie animationData={cancelAnimation} className="w-48 h-48 mb-8" loop={false} />
+            {/* Renderizar Lottie solo si isClient es true */}
+            {isClient && (
+                <Lottie animationData={cancelAnimation} className="w-48 h-48 mb-8" loop={false} />
+            )}
             <h1 className="text-3xl font-bold mb-4">¡Algo salió mal!</h1>
             <p className="text-lg text-center mb-6">
                 Parece que tu reserva <span className="font-bold">no se completó</span>.
