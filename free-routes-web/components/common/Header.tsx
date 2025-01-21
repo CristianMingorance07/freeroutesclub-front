@@ -8,7 +8,9 @@ export default function Header() {
   const [isAnimating, setIsAnimating] = useState(false);
 
   const handleCloseMenu = () => {
-    if (window.innerWidth > 640) return;
+    if (typeof window !== 'undefined' && window.innerWidth > 640) {
+      return;
+    }
 
     setIsAnimating(true);
     setShowMenu(false);

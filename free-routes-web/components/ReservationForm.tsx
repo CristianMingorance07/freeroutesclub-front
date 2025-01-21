@@ -123,7 +123,9 @@ export default function ReservationForm({
             const data = await response.json();
 
             if (response.ok) {
-                window.location.href = data.url;
+                if (typeof window !== 'undefined') {
+                    window.location.href = data.url;
+                }
             } else {
                 setCouponError(data.error || 'Error al procesar la reserva.');
             }

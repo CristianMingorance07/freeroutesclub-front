@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation'; // Uso correcto de useRouter con la nueva API
-import Lottie from 'lottie-react';
+import { useRouter } from 'next/navigation';
+import dynamic from 'next/dynamic';
+
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 import cancelAnimation from '@/public/animations/cancel.json';
 
 export default function Cancel() {
