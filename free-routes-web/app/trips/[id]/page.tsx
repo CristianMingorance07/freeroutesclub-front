@@ -109,24 +109,24 @@ export default function TripDetailPage() {
                         animate="visible"
                         transition={{duration: 0.8, delay: 0.2}}
                     >
-                        <div className="mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-3 gap-8">
-                            {/* Sección de descripción y detalles */}
-                            <div className="col-span-2">
-                                {trip.sections?.map((section, index) => (
+                        <div className="mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-3 gap-2">
+                            {/* Contenedor para las primeras dos secciones */}
+                            <div className="lg:col-span-2 grid grid-cols-1 gap-0 auto-rows-auto">
+
+                                {trip.sections?.slice(0, 2).map((section) => (
                                     <div
                                         key={section.id}
-                                        className={`mb-10 ${
-                                            index >= 2 ? "grid grid-cols-1 sm:grid-cols-2 gap-6" : ""
-                                        }`}
+                                        className="bg-white rounded-lg p-6 transition-transform "
+                                        style={{height: "fit-content !important"}}
                                     >
                                         <div>
-                                            <h3 className="mb-4 text-2xl font-semibold sm:text-3xl">
+                                            <h3 className="mb-4 text-3xl font-bold text-[#0F172A] sm:text-4xl tracking-wide">
                                                 {section.title}
                                             </h3>
                                             {section.content?.paragraphs?.map((paragraph, idx) => (
                                                 <p
                                                     key={idx}
-                                                    className="mb-4 text-lg leading-relaxed"
+                                                    className="mb-4 text-lg leading-relaxed text-gray-700 tracking-wide"
                                                     dangerouslySetInnerHTML={{
                                                         __html: paragraph.replace(
                                                             /<a /g,
@@ -136,11 +136,11 @@ export default function TripDetailPage() {
                                                 />
                                             ))}
                                             {section.content?.list?.length > 0 && (
-                                                <ul className="ml-4 list-disc space-y-2">
+                                                <ul className="ml-4 list-disc space-y-2 text-gray-700">
                                                     {section.content.list.map((item, idx) => (
                                                         <li
                                                             key={idx}
-                                                            className="text-lg leading-relaxed"
+                                                            className="text-lg leading-relaxed tracking-wide"
                                                             dangerouslySetInnerHTML={{
                                                                 __html: item.replace(
                                                                     /<a /g,
@@ -162,58 +162,56 @@ export default function TripDetailPage() {
                             </div>
 
                             {/* Bloque de información adicional */}
-                            <div className="bg-white shadow-lg rounded-lg p-6 sticky top-20">
-                                {/* Título y subtítulo */}
-                                <h4 className="text-2xl font-bold text-[#ED0874] mb-4">
-                                    {trip.title}
-                                </h4>
-                                <p className="text-lg text-gray-600 mb-6">
-                                    {trip.duration} • Salida:{" "}
-                                    {new Date(trip.departure.date).toLocaleDateString()}
+                            <aside
+                                className="
+                                lg:col-span-1 bg-white shadow-lg rounded-lg p-6 h-fit
+                                relative sm:static lg:sticky lg:top-20
+                                order-2 lg:order-none">
+
+
+                                <h4 className="text-2xl font-extrabold text-[#ED0874] mb-4 tracking-wide">{trip.title}</h4>
+                                <p className="text-lg text-gray-600 mb-6 leading-relaxed tracking-wide">
+                                    {trip.duration} • Salida: {new Date(trip.departure.date).toLocaleDateString()}
                                 </p>
 
-                                {/* Precio y depósito */}
                                 <div className="mb-6">
                                     <p className="text-4xl font-extrabold text-[#3B74BF]">
                                         {trip.price} €
                                         <span className="line-through text-gray-400 text-xl ml-2">
-                        {(trip.price + 100).toFixed(2)} €
-                    </span>
+        {(trip.price + 100).toFixed(2)} €
+      </span>
                                     </p>
-                                    <p className="text-gray-600 text-sm">
-                                        Reserva tu plaza con un depósito de{" "}
+                                    <p className="text-gray-600 text-sm leading-relaxed">
+                                        Reserva tu plaza con un depósito de
                                         <span className="font-bold text-[#ED0874]">
-                        {(trip.price * 0.45).toFixed(2)} €
-                    </span>
+        {(trip.price * 0.45).toFixed(2)} €
+      </span>
                                     </p>
-                                    <p className="text-gray-600 text-sm">
-                                        Paga{" "}
-                                        {(trip.price - trip.price * 0.45).toFixed(2)} € antes del{" "}
+                                    <p className="text-gray-600 text-sm leading-relaxed">
+                                        Paga {(trip.price - trip.price * 0.45).toFixed(2)} € antes del{" "}
                                         {new Date(
                                             new Date(trip.dates.start).getTime() - 60 * 24 * 60 * 60 * 1000
                                         ).toLocaleDateString()}
                                     </p>
                                 </div>
 
-                                {/* Botón de reserva */}
                                 <button
-                                    className="bg-gradient-to-r from-[#ED0874] to-[#3B74BF] text-white font-bold py-3 px-6 rounded-full hover:scale-105 hover:shadow-lg transition-transform">
+                                    className="bg-gradient-to-r from-[#ED0874] to-[#3B74BF] text-white font-bold py-3 px-6 rounded-full hover:scale-105 hover:shadow-lg transition-transform tracking-wide"
+                                >
                                     Reservar Ahora
                                 </button>
-                                <p className="mt-4 text-sm text-gray-500 text-center">
+                                <p className="mt-4 text-sm text-gray-500 text-center leading-relaxed tracking-wide">
                                     o paga en 3 plazos de {(trip.price / 3).toFixed(2)} € sin intereses.
                                 </p>
 
                                 <hr className="my-6"/>
 
-                                {/* Beneficios */}
                                 <div className="mb-6">
-                                    <h4 className="text-lg font-bold text-[#3B74BF] mb-2">
-                                        Qué está incluido
-                                    </h4>
+                                    <h4 className="text-lg font-bold text-[#3B74BF] mb-2 tracking-wide">Qué está
+                                        incluido</h4>
                                     <ul className="space-y-2 text-sm text-gray-700">
                                         {trip.inclusions.map((inclusion, idx) => (
-                                            <li key={idx} className="flex items-start">
+                                            <li key={idx} className="flex items-start leading-relaxed">
                                                 <span className="text-green-500 mr-2">✅</span>
                                                 {inclusion}
                                             </li>
@@ -221,58 +219,149 @@ export default function TripDetailPage() {
                                     </ul>
                                 </div>
 
-                                {/* Indicadores */}
                                 <div className="mb-6">
-                                    <h4 className="text-lg font-bold text-[#3B74BF] mb-2">
-                                        Indicadores de la Experiencia
+                                    <h4 className="text-lg font-semibold text-[#1F2937] mb-4 text-left tracking-wide">
+                                        Resumen de la Experiencia
                                     </h4>
-                                    <ul className="space-y-1 text-sm">
-                                        <li>🎉 Diversión: {trip.additionalDetails.experienceIndicators.fun}/10</li>
-                                        <li>
-                                            ⚙️ Dificultad:{" "}
-                                            {trip.additionalDetails.experienceIndicators.difficulty}/10
-                                        </li>
-                                        <li>
-                                            🌄 Paisaje:{" "}
-                                            {trip.additionalDetails.experienceIndicators.scenery}/10
-                                        </li>
-                                        <li>
-                                            🏛️ Cultura:{" "}
-                                            {trip.additionalDetails.experienceIndicators.culture}/10
-                                        </li>
-                                        <li>
-                                            🍝 Gastronomía:{" "}
-                                            {trip.additionalDetails.experienceIndicators.gastronomy}/10
-                                        </li>
-                                    </ul>
+                                    <div className="space-y-4 px-4 pr-8 pl-0">
+                                        {[
+                                            {
+                                                label: "🎉 Diversión",
+                                                value: trip.additionalDetails.experienceIndicators.fun,
+                                                color: "from-pink-400 to-pink-600",
+                                            },
+                                            {
+                                                label: "⚙️ Dificultad",
+                                                value: trip.additionalDetails.experienceIndicators.difficulty,
+                                                color: "from-blue-400 to-blue-600",
+                                            },
+                                            {
+                                                label: "🌄 Paisaje",
+                                                value: trip.additionalDetails.experienceIndicators.scenery,
+                                                color: "from-green-400 to-green-600",
+                                            },
+                                            {
+                                                label: "🏛️ Cultura",
+                                                value: trip.additionalDetails.experienceIndicators.culture,
+                                                color: "from-purple-400 to-purple-600",
+                                            },
+                                            {
+                                                label: "🍝 Gastronomía",
+                                                value: trip.additionalDetails.experienceIndicators.gastronomy,
+                                                color: "from-yellow-400 to-yellow-600",
+                                            },
+                                        ].map((indicator, idx) => (
+                                            <motion.div
+                                                key={idx}
+                                                className="space-y-1"
+                                                initial={{opacity: 0, y: 30}}
+                                                whileInView={{opacity: 1, y: 0}}
+                                                viewport={{once: true}}
+                                                transition={{duration: 0.8, delay: idx * 0.2}}
+                                            >
+                                                <div className="flex items-center justify-between w-full">
+                    <span className="text-sm font-medium text-[#4B5563]">
+                        {indicator.label}
+                    </span>
+                                                    <span className="text-sm font-semibold text-gray-600">
+                        {indicator.value * 10}%
+                    </span>
+                                                </div>
+                                                <div
+                                                    className="relative w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+                                                    <motion.div
+                                                        className={`absolute top-0 left-0 h-full rounded-full bg-gradient-to-r ${indicator.color}`}
+                                                        initial={{width: "0%"}}
+                                                        whileInView={{width: `${indicator.value * 10}%`}}
+                                                        viewport={{once: true}}
+                                                        transition={{
+                                                            duration: 1.5,
+                                                            delay: idx * 0.3,
+                                                            ease: "easeInOut",
+                                                        }}
+                                                    />
+                                                </div>
+                                            </motion.div>
+                                        ))}
+                                    </div>
                                 </div>
+
 
                                 <hr className="my-6"/>
 
-                                {/* Puntos de interés */}
                                 <div className="mb-6">
-                                    <h4 className="text-lg font-bold text-[#3B74BF] mb-2">
-                                        Puntos de Interés
-                                    </h4>
+                                    <h4 className="text-lg font-bold text-[#3B74BF] mb-2 tracking-wide">Puntos de
+                                        Interés</h4>
                                     <ul className="space-y-2">
                                         {trip.additionalDetails.pointsOfInterest.map((point, idx) => (
-                                            <li key={idx} className="text-sm">
+                                            <li key={idx} className="text-sm leading-relaxed">
                                                 <strong>{point.name}:</strong> {point.description}
                                             </li>
                                         ))}
                                     </ul>
                                 </div>
 
-                                {/* Seguro médico */}
                                 <div>
                                     <a
                                         href="https://www.weroad.es/legal/seguro-medico-equipaje"
                                         target="_blank"
-                                        className="text-blue-600 text-sm font-bold hover:underline"
+                                        rel="noopener noreferrer"
+                                        className="text-blue-600 text-sm font-bold hover:underline tracking-wide"
                                     >
                                         Seguro médico y maletas (cobertura hasta 50,000€)
                                     </a>
                                 </div>
+                            </aside>
+
+
+                            {/* Contenedor para las secciones restantes */}
+                            <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4 auto-rows-min" >
+                                {trip.sections?.slice(2).map((section) => (
+                                    <div
+                                        key={section.id}
+                                        className="bg-white rounded-lg p-4 transition-transform"
+                                        style={{height: "auto"}}
+                                    >
+                                        <div>
+                                            <h3 className="mb-2 text-xl font-semibold text-[#0F172A] tracking-wide">
+                                                {section.title}
+                                            </h3>
+                                            {section.content?.paragraphs?.map((paragraph, idx) => (
+                                                <p
+                                                    key={idx}
+                                                    className="mb-2 text-sm leading-relaxed text-gray-700 tracking-wide"
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: paragraph.replace(
+                                                            /<a /g,
+                                                            "<a class='text-blue-600 font-bold hover:underline'"
+                                                        ),
+                                                    }}
+                                                />
+                                            ))}
+                                            {section.content?.list?.length > 0 && (
+                                                <ul className="ml-4 list-disc space-y-1 text-gray-700 tracking-wide">
+                                                    {section.content.list.map((item, idx) => (
+                                                        <li
+                                                            key={idx}
+                                                            className="text-sm leading-relaxed"
+                                                            dangerouslySetInnerHTML={{
+                                                                __html: item.replace(
+                                                                    /<a /g,
+                                                                    "<a class='text-blue-600 font-bold hover:underline'"
+                                                                ),
+                                                            }}
+                                                        />
+                                                    ))}
+                                                </ul>
+                                            )}
+                                        </div>
+                                        {section.images?.length > 0 && (
+                                            <div className="relative">
+                                                <ImageGallery images={section.images}/>
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </motion.section>
