@@ -160,11 +160,11 @@ export default function TripDetailPage() {
                 </div>
 
                 {/* Contenedor para las secciones restantes */}
-                <div className="gap-4 flex flex-col lg:flex-row lg:flex-wrap">
+                <div className="gap-4 mt-4 flex flex-col lg:flex-row lg:flex-wrap lg:justify-between">
                   {trip.sections?.slice(2).map((section) => (
                     <div
                       key={section.id}
-                      className="rounded-lg p-6 bg-white w-96 transition-transform"
+                      className="rounded-lg p-6 w-full bg-white lg:w-1/2 lg:-ml-4 transition-transform"
                     >
                       <div>
                         <h3 className="mb-2 text-xl font-semibold tracking-wide text-[#0F172A]">
