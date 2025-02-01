@@ -65,13 +65,13 @@ export default function TripDetailPage() {
             transition={{ duration: 1 }}
           >
             <div
-              className={`absolute h-[30rem] w-full bg-cover bg-center`}
+              className="absolute h-[40rem] w-full bg-cover bg-center"
               style={{
                 backgroundImage: `url(${trip.images[0] || "/img/placeholder.webp"})`,
                 filter: "brightness(0.7) opacity(0.9)",
               }}
             ></div>
-            <div className="relative z-10 mx-auto flex h-[30rem] max-w-6xl flex-col items-center justify-center px-4 text-center">
+            <div className="relative z-10 mx-auto flex h-[40rem] max-w-6xl flex-col items-center justify-center px-4 text-center">
               <motion.h1
                 className="mb-4 text-4xl font-extrabold leading-tight text-white drop-shadow-lg sm:mb-6 sm:text-6xl"
                 variants={fadeInUp}
