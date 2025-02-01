@@ -7,10 +7,10 @@ export default function Page() {
       <section className="relative flex h-[80vh] flex-col items-center justify-center text-white">
         <div className="absolute top-0 h-full w-full justify-center bg-[url('/img/bg-routes.png')] bg-cover bg-center bg-no-repeat brightness-50"></div>
         <div className="z-10 p-8 text-center">
-          <h2 className="mb-4 text-5xl font-bold sm:text-7xl 2xl:text-8xl">
-            FREE ROUTES
+          <h2 className="mb-4 text-4xl font-bold sm:text-5xl 2xl:text-7xl">
+            WE RIDERS TRAVEL
           </h2>
-          <p className="text-2xl sm:text-4xl 2xl:text-5xl">
+          <p className="text-2xl sm:text-3xl 2xl:text-5xl">
             La libertad sobre dos ruedas
           </p>
           <div className="flex w-full justify-center">
