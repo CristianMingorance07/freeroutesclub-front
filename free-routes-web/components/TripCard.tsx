@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function TripCard({ trip }: { trip: Trip }) {
     return (
-        <div className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow bg-white h-[420px] w-full flex flex-col">
+        <div className="group w-72 sm:w-96 relative overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow bg-white h-[420px] flex flex-col">
             <div className="relative w-full h-2/5">
                 <Image
                     src={trip.imageUrl}
