@@ -48,7 +48,7 @@ export default function Header() {
     <header
       className={`fixed top-0 z-50 w-dvw transition duration-300 ${isScrolled ? "border-b border-gray-200 bg-white/80 text-gray-700" : "border-none bg-transparent text-white"} p-4 font-bold`}
     >
-      <div className="container flex w-full items-center justify-between sm:mx-auto lg:max-w-7xl">
+      <div className="container flex w-full items-center justify-between sm:mx-auto lg:max-w-6xl">
         <div className="text-xl font-bold">
           <Link href="/">
             <img src="/img/logos/logo-h.png" alt="logo" className="w-10" />
