@@ -16,7 +16,7 @@ export default function Page() {
           <div className="flex w-full justify-center">
             <Link href="/trips" className="mx-auto mt-6">
               <button className="rounded-full bg-gradient-to-r from-[#ED0874] to-[#3B74BF] px-8 py-4 text-lg text-white shadow-md transition-transform hover:scale-105">
-                Consulta nuestras rutas
+                Explora nuestras rutas
               </button>
             </Link>
           </div>
