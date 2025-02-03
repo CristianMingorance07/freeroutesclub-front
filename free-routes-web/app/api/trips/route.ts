@@ -2,10 +2,14 @@ import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import Trip from "@/models/Trip";
 
+interface TripQuery {
+  title?: { $regex: string; $options: string };
+  "dates.start"?: { $gte: Date };
+  "dates.end"?: { $lte: Date };
+}
+
 export async function GET(request: Request) {
   await dbConnect();
-
-  console.log("searchParams", new URL(request.url).searchParams);
 
   const { searchParams } = new URL(request.url);
   const title = searchParams.get("title");
@@ -14,14 +18,13 @@ export async function GET(request: Request) {
 
   const start = startStr ? new Date(startStr) : undefined;
   const endDate = endDateStr ? new Date(endDateStr) : undefined;
-  console.log("start", start);
 
-  let query: any = {};
+  const query: TripQuery = {};
 
   if (title) {
     query.title = { $regex: title, $options: "i" };
   }
-  //{ "dates.start": { "$gte": ISODate("2025-06-15T00:00:00.000Z") } }
+
   if (start && endDate) {
     query["dates.start"] = { $gte: start };
     query["dates.end"] = { $lte: endDate };
@@ -32,7 +35,6 @@ export async function GET(request: Request) {
     query["dates.start"] = { $gte: today };
     query["dates.end"] = { $lte: endDate };
   }
-  console.log("query", query);
 
   const trips = await Trip.find(query);
   return NextResponse.json({ success: true, data: trips });
