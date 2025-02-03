@@ -1,9 +1,11 @@
 "use client";
 
-import { ITrip as Trip } from "@/models/Trip";
-import { useTripContext } from "@/context/TripContext";
 import { useState, useEffect, useRef, useCallback } from "react";
 import TripCard from "@/components/TripCard";
+import TripCardLoading from "@/components/TripCardLoading";
+import Loader from "@/components/common/Loader";
+import { ITrip as Trip } from "@/models/Trip";
+import { useTripContext } from "@/context/TripContext";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { CiCircleChevLeft, CiCircleChevRight } from "react-icons/ci";
@@ -62,11 +64,12 @@ export default function TripsPage() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
       >
-        <div className="flex mb-4 flex-col sm:flex-row sm:justify-between sm:items-center">
-          <h1 className="text-3xl sm:text-3xl lg:text-4xl font-extrabold leading-tight text-white">
+        <div className="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+          <h1 className="text-3xl font-extrabold leading-tight text-white sm:text-3xl lg:text-4xl">
             Explora nuestras rutas
           </h1>
-          <div className=" hidden justify-center items-center gap-4 md:mt-0 sm:flex">
+
+          <div className="hidden items-center justify-center gap-4 sm:flex md:mt-0">
             <button onClick={() => handleScroll("left")}>
               <CiCircleChevLeft
                 className={`size-10 rounded-full transition-colors ${canScrollLeft ? "text-white" : "text-gray-600"}`}
@@ -74,7 +77,7 @@ export default function TripsPage() {
             </button>
             <button onClick={() => handleScroll("right")}>
               <CiCircleChevRight
-                className={`size-10 rounded-full transition-colors ${canScrollRight ? "text-white" : "text-gray-600"}`}
+                className={`size-10 rounded-full transition-colors ${canScrollRight && trips.length > 0 ? "text-white" : "text-gray-600"}`}
               />
             </button>
           </div>
@@ -84,26 +87,32 @@ export default function TripsPage() {
           ref={carouselRef}
           className="no-scrollbar flex max-w-7xl gap-6 overflow-x-scroll"
         >
-          {trips.map((trip) => (
-            <motion.div
-              key={trip._id}
-              variants={{
-                hidden: { opacity: 0, y: 50 },
-                visible: { opacity: 1, y: 0 },
-              }}
-            >
-              <Link
-                href={`/trips/${trip._id}`}
-                onClick={() => setSelectedTrip(trip)}
-                className="hover:no-underline"
-              >
-                <TripCard trip={trip} />
-              </Link>
-            </motion.div>
-          ))}
+          {trips.length === 0
+            ? Array.from({ length: 3 }).map((_, i) => (
+                <div>
+                  <TripCardLoading key={i} />
+                </div>
+              ))
+            : trips.map((trip) => (
+                <motion.div
+                  key={trip._id}
+                  variants={{
+                    hidden: { opacity: 0, y: 50 },
+                    visible: { opacity: 1, y: 0 },
+                  }}
+                >
+                  <Link
+                    href={`/trips/${trip._id}`}
+                    onClick={() => setSelectedTrip(trip)}
+                    className="hover:no-underline"
+                  >
+                    <TripCard trip={trip} />
+                  </Link>
+                </motion.div>
+              ))}
         </div>
       </motion.div>
-    
+
       {/* Call to Action */}
       <motion.div
         className="mt-16 text-center"
