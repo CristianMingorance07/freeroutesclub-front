@@ -58,9 +58,9 @@ export default function TripsPage() {
 
   return (
     <section className="relative bg-gradient-to-br from-[#f9fafb] to-[#e3e8f1] py-12">
-      <div className="absolute top-0 z-0 h-[80vh] w-full justify-center bg-[url('/img/bg-trips.png')] bg-cover bg-center bg-no-repeat brightness-50"></div>
+      <div className="absolute top-0 z-0 h-[90vh] w-full justify-center bg-[url('/img/bg-trips.png')] bg-cover bg-center bg-no-repeat brightness-50 sm:h-[80vh]"></div>
       <motion.div
-        className="relative z-20 mx-auto flex h-[80vh] max-w-6xl flex-col justify-center p-8 text-center"
+        className="sm:p8 relative z-20 flex h-[80vh] max-w-6xl flex-col justify-center p-5 pr-0 text-center sm:mx-auto sm:h-[80vh]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
@@ -92,7 +92,7 @@ export default function TripsPage() {
         <div
           id="carrousel"
           ref={carouselRef}
-          className="no-scrollbar flex max-w-7xl gap-6 overflow-x-scroll"
+          className="no-scrollbar -ml-4 flex max-w-6xl gap-6 overflow-x-scroll sm:ml-0"
         >
           {trips.length === 0
             ? Array.from({ length: 3 }).map((_, i) => (
@@ -121,7 +121,7 @@ export default function TripsPage() {
       </motion.div>
 
       <motion.div
-        className="mt-12 flex flex-col justify-center"
+        className="mt-0 flex flex-col justify-center sm:mt-12"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.5 }}

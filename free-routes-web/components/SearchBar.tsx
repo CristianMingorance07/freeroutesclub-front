@@ -65,7 +65,7 @@ export default function SearchBar({
   };
 
   return (
-    <>
+    <div className="sm:mx-0 w-full">
       <div className="mx-auto flex w-full max-w-6xl flex-col items-center border-2 border-gray-200 bg-white py-9 text-[#08338F] shadow-sm transition-shadow hover:shadow-md sm:flex-row sm:rounded-full sm:p-0">
         <div className="relative w-full flex-1 rounded-l-full px-4 py-3 hover:bg-gray-50 sm:py-3 sm:pl-6 sm:pr-4">
           <label className="mb-1 block text-xs font-semibold">Destino</label>
@@ -134,6 +134,6 @@ export default function SearchBar({
       {error && (
         <p className="block p-4 font-semibold text-red-500">*{error}</p>
       )}
-    </>
+    </div>
   );
 }
