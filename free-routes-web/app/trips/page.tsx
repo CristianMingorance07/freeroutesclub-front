@@ -3,15 +3,16 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import TripCard from "@/components/TripCard";
 import TripCardLoading from "@/components/TripCardLoading";
-import Loader from "@/components/common/Loader";
 import { ITrip as Trip } from "@/models/Trip";
 import { useTripContext } from "@/context/TripContext";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { CiCircleChevLeft, CiCircleChevRight } from "react-icons/ci";
+import SearchBar from "@/components/SearchBar";
 
 export default function TripsPage() {
   const [trips, setTrips] = useState<Trip[]>([]);
+  const [filteredTrips, setFilteredTrips] = useState<Trip[]>([]);
   const { setSelectedTrip } = useTripContext();
   const carouselRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -43,7 +44,7 @@ export default function TripsPage() {
   useEffect(() => {
     const fetchTrips = async () => {
       try {
-        const res = await fetch("/api/trips", { cache: "no-store" });
+        const res = await fetch("/api/trips?hello=hi", { cache: "no-store" });
         if (!res.ok) throw new Error("Failed to fetch trips");
         const { data }: { data: Trip[] } = await res.json();
         setTrips(data);
@@ -57,25 +58,31 @@ export default function TripsPage() {
 
   return (
     <section className="relative bg-gradient-to-br from-[#f9fafb] to-[#e3e8f1] py-12">
-      <div className="absolute top-0 z-0 h-[80vh] w-full justify-center bg-[url('/img/bg-trips.png')] bg-cover bg-center bg-no-repeat brightness-50"></div>
+      <div className="absolute top-0 z-0 h-[90vh] w-full justify-center bg-[url('/img/bg-trips.png')] bg-cover bg-center bg-no-repeat brightness-50 sm:h-[80vh]"></div>
       <motion.div
-        className="relative z-20 mx-auto flex h-[80vh] max-w-6xl flex-col justify-center p-8 text-center"
+        className="sm:p8 relative z-20 flex h-[80vh] max-w-6xl flex-col justify-center p-5 pr-0 text-center sm:mx-auto sm:h-[80vh]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
       >
         <div className="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
           <h1 className="text-3xl font-extrabold leading-tight text-white sm:text-3xl lg:text-4xl">
-            Explora nuestras rutas
+            Rutas populares
           </h1>
 
           <div className="hidden items-center justify-center gap-4 sm:flex md:mt-0">
-            <button onClick={() => handleScroll("left")}>
+            <button
+              className={`${!canScrollLeft && "cursor-default"}`}
+              onClick={() => handleScroll("left")}
+            >
               <CiCircleChevLeft
                 className={`size-10 rounded-full transition-colors ${canScrollLeft ? "text-white" : "text-gray-600"}`}
               />
             </button>
-            <button onClick={() => handleScroll("right")}>
+            <button
+              className={`${!canScrollRight && "cursor-default"}`}
+              onClick={() => handleScroll("right")}
+            >
               <CiCircleChevRight
                 className={`size-10 rounded-full transition-colors ${canScrollRight && trips.length > 0 ? "text-white" : "text-gray-600"}`}
               />
@@ -85,12 +92,12 @@ export default function TripsPage() {
         <div
           id="carrousel"
           ref={carouselRef}
-          className="no-scrollbar flex max-w-7xl gap-6 overflow-x-scroll"
+          className="no-scrollbar -ml-4 flex max-w-6xl gap-6 overflow-x-scroll sm:ml-0"
         >
           {trips.length === 0
             ? Array.from({ length: 3 }).map((_, i) => (
-                <div>
-                  <TripCardLoading key={i} />
+                <div key={i}>
+                  <TripCardLoading />
                 </div>
               ))
             : trips.map((trip) => (
@@ -113,7 +120,35 @@ export default function TripsPage() {
         </div>
       </motion.div>
 
-      {/* Call to Action */}
+      <motion.div
+        className="mt-0 flex flex-col justify-center sm:mt-12"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.5 }}
+      >
+        <SearchBar setFilteredTrips={setFilteredTrips} />
+      </motion.div>
+      {filteredTrips.length > 0 && (
+        <motion.div
+          className="mx-auto mt-8 flex max-w-6xl flex-wrap justify-center gap-6"
+          variants={{
+            hidden: { opacity: 0, y: 50 },
+            visible: { opacity: 1, y: 0 },
+          }}
+        >
+          {filteredTrips.map((trip) => (
+            <Link
+              key={trip._id}
+              href={`/trips/${trip._id}`}
+              onClick={() => setSelectedTrip(trip)}
+              className="hover:no-underline"
+            >
+              <TripCard trip={trip} />
+            </Link>
+          ))}
+        </motion.div>
+      )}
+
       <motion.div
         className="mt-16 text-center"
         initial={{ opacity: 0, y: 50 }}
