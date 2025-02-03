@@ -123,7 +123,7 @@ export default function TripsPage() {
 
       {/* Search Bar */}
       <motion.div
-        className="mt-12 flex justify-center"
+        className="mt-12 flex flex-col justify-center"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.5 }}
@@ -131,7 +131,7 @@ export default function TripsPage() {
         <SearchBar setFilteredTrips={setFilteredTrips} />
       </motion.div>
       {filteredTrips.length > 0 &&
-        trips.map((trip) => (
+        filteredTrips.map((trip) => (
           <motion.div
             key={trip._id}
             variants={{
