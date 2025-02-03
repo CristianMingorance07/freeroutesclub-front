@@ -1,4 +1,5 @@
-import { useState, useRef } from "react";
+import { error } from "console";
+import { useState, useRef, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 
 const formatDateEs = (dateString: string): string => {
@@ -14,14 +15,23 @@ export default function SearchBar() {
   const [destination, setDestination] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [error, setError] = useState<string | null>(null);
   const startDateRef = useRef<HTMLInputElement>(null);
   const endDateRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (startDate && endDate && startDate > endDate) {
+      setError("La fecha de vuelta no puede ser anterior a la de ida");
+    } else {
+      setError(null);
+    }
+  }, [startDate, endDate]);
 
   const handleSearch = () => {
     console.log("Searching with", {
       destination,
-      startDate: formatDateEs(startDate),
-      endDate: formatDateEs(endDate),
+      startDate,
+      endDate,
     });
   };
 
@@ -49,13 +59,12 @@ export default function SearchBar() {
 
       <div className="h-px w-full bg-gray-200 sm:h-8 sm:w-px" />
 
-      {/* Botón Fecha Inicio */}
       <button
         className="relative w-full px-4 py-3 hover:bg-gray-50 sm:w-1/3"
         onClick={() => triggerDatePicker("start")}
       >
         <div className="text-left">
-          <label className="mb-1 block text-xs font-semibold">Llegada</label>
+          <label className="mb-1 block text-xs font-semibold">Ida</label>
           <input
             ref={startDateRef}
             type="date"
@@ -71,13 +80,12 @@ export default function SearchBar() {
 
       <div className="h-px w-full bg-gray-200 sm:h-8 sm:w-px" />
 
-      {/* Botón Fecha Fin */}
       <button
         className="relative w-full px-4 py-3 hover:bg-gray-50 sm:w-1/3"
         onClick={() => triggerDatePicker("end")}
       >
         <div className="text-left">
-          <label className="mb-1 block text-xs font-semibold">Salida</label>
+          <label className="mb-1 block text-xs font-semibold">Vuelta</label>
           <input
             ref={endDateRef}
             type="date"
@@ -93,14 +101,14 @@ export default function SearchBar() {
 
       <div className="h-px w-full bg-gray-200 sm:h-8 sm:w-px" />
 
-      {/* Botón Buscar */}
       <button
         onClick={handleSearch}
-        className="m-2 mt-9 w-1/2 sm:w-auto flex items-center justify-center gap-4 rounded-full bg-[#ED0874] p-3 text-white transition-colors hover:bg-gray-200 sm:m-0 sm:mx-4 sm:bg-transparent"
+        className="m-2 mt-9 flex w-1/2 items-center justify-center gap-4 rounded-full bg-[#ED0874] p-3 text-white transition-colors hover:bg-gray-200 sm:m-0 sm:mx-4 sm:w-auto sm:bg-transparent"
       >
         <p className="sm:hidden">Buscar</p>
         <FaSearch className="text-white sm:text-[#ED0874]" size={18} />
       </button>
+      {error && <p className="p-4 font-semibold text-red-500">*{error}</p>}
     </div>
   );
 }
