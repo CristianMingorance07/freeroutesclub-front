@@ -103,7 +103,8 @@ export default function SearchBar() {
 
       <button
         onClick={handleSearch}
-        className="m-2 mt-9 flex w-1/2 items-center justify-center gap-4 rounded-full bg-[#ED0874] p-3 text-white transition-colors hover:bg-gray-200 sm:m-0 sm:mx-4 sm:w-auto sm:bg-transparent"
+        disabled={error !== null}
+        className={`m-2 mt-9 flex w-1/2 items-center justify-center gap-4 rounded-full p-3 text-white transition-colors hover:bg-gray-200 sm:m-0 sm:mx-4 sm:w-auto sm:bg-transparent ${error ? "cursor-not-allowed bg-gray-200" : "bg-[#ED0874]"}`}
       >
         <p className="sm:hidden">Buscar</p>
         <FaSearch className="text-white sm:text-[#ED0874]" size={18} />
