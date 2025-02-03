@@ -120,7 +120,6 @@ export default function TripsPage() {
         </div>
       </motion.div>
 
-      {/* Search Bar */}
       <motion.div
         className="mt-12 flex flex-col justify-center"
         initial={{ opacity: 0, y: 50 }}
@@ -129,26 +128,27 @@ export default function TripsPage() {
       >
         <SearchBar setFilteredTrips={setFilteredTrips} />
       </motion.div>
-      {filteredTrips.length > 0 &&
-        filteredTrips.map((trip) => (
-          <motion.div
-            key={trip._id}
-            variants={{
-              hidden: { opacity: 0, y: 50 },
-              visible: { opacity: 1, y: 0 },
-            }}
-          >
+      {filteredTrips.length > 0 && (
+        <motion.div
+          className="mx-auto mt-8 flex max-w-6xl flex-wrap justify-center gap-6"
+          variants={{
+            hidden: { opacity: 0, y: 50 },
+            visible: { opacity: 1, y: 0 },
+          }}
+        >
+          {filteredTrips.map((trip) => (
             <Link
+              key={trip._id}
               href={`/trips/${trip._id}`}
               onClick={() => setSelectedTrip(trip)}
               className="hover:no-underline"
             >
               <TripCard trip={trip} />
             </Link>
-          </motion.div>
-        ))}
+          ))}
+        </motion.div>
+      )}
 
-      {/* Call to Action */}
       <motion.div
         className="mt-16 text-center"
         initial={{ opacity: 0, y: 50 }}

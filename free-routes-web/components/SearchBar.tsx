@@ -66,8 +66,7 @@ export default function SearchBar({
 
   return (
     <>
-      <div className="flex w-full flex-col items-center border-2 border-gray-200 bg-white py-9 text-[#08338F] shadow-sm transition-shadow hover:shadow-md sm:flex-row sm:rounded-full sm:p-0">
-        {/* Input Destino */}
+      <div className="mx-auto flex w-full max-w-6xl flex-col items-center border-2 border-gray-200 bg-white py-9 text-[#08338F] shadow-sm transition-shadow hover:shadow-md sm:flex-row sm:rounded-full sm:p-0">
         <div className="relative w-full flex-1 rounded-l-full px-4 py-3 hover:bg-gray-50 sm:py-3 sm:pl-6 sm:pr-4">
           <label className="mb-1 block text-xs font-semibold">Destino</label>
           <input
