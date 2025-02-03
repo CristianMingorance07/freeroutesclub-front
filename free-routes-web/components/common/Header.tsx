@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Header() {
   const [showMenu, setShowMenu] = useState(false);
@@ -51,7 +52,13 @@ export default function Header() {
       <div className="container flex w-full items-center justify-between sm:mx-auto lg:max-w-6xl">
         <div className="text-xl font-bold">
           <Link href="/">
-            <img src="/img/logos/logo-h.png" alt="logo" className="w-10" />
+            <Image
+              src="/img/logos/logo-h.png"
+              width={100}
+              height={100}
+              alt="logo"
+              className="w-10"
+            />
           </Link>
         </div>
         <nav className="sm:w-2/3">

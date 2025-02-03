@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import TripCard from "@/components/TripCard";
 import TripCardLoading from "@/components/TripCardLoading";
-import Loader from "@/components/common/Loader";
 import { ITrip as Trip } from "@/models/Trip";
 import { useTripContext } from "@/context/TripContext";
 import Link from "next/link";

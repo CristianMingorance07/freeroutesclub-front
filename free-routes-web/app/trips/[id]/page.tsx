@@ -42,9 +42,13 @@ export default function TripDetailPage() {
       observer.observe(reserveButtonRef.current);
     }
 
+    const buttonRef = reserveButtonRef.current;
+    if (buttonRef) {
+      observer.observe(buttonRef);
+    }
     return () => {
-      if (reserveButtonRef.current) {
-        observer.unobserve(reserveButtonRef.current);
+      if (buttonRef) {
+        observer.unobserve(buttonRef);
       }
     };
   }, [trip]);
@@ -108,7 +112,7 @@ export default function TripDetailPage() {
             animate="visible"
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="mx-auto flex max-w-7xl flex-col lg:flex-row gap-4">
+            <div className="mx-auto flex max-w-7xl flex-col gap-4 lg:flex-row">
               <div className="lg:w-2/3">
                 {/* Contenedor para las primeras dos secciones */}
                 <div className="flex flex-col gap-4">
@@ -160,11 +164,11 @@ export default function TripDetailPage() {
                 </div>
 
                 {/* Contenedor para las secciones restantes */}
-                <div className="gap-4 mt-4 flex flex-col lg:flex-row lg:flex-wrap lg:justify-between">
+                <div className="mt-4 flex flex-col gap-4 lg:flex-row lg:flex-wrap lg:justify-between">
                   {trip.sections?.slice(2).map((section) => (
                     <div
                       key={section.id}
-                      className="rounded-lg p-6 w-full bg-white lg:w-1/2 lg:-ml-4 transition-transform"
+                      className="w-full rounded-lg bg-white p-6 transition-transform lg:-ml-4 lg:w-1/2"
                     >
                       <div>
                         <h3 className="mb-2 text-xl font-semibold tracking-wide text-[#0F172A]">
