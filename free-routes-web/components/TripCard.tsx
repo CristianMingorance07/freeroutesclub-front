@@ -13,7 +13,7 @@ export default function TripCard({ trip }: { trip: Trip }) {
   };
 
   return (
-    <div className="group relative flex h-[420px] w-72 flex-col overflow-hidden rounded-lg bg-white/90 shadow-md transition-transform hover:translate-x-1 hover:shadow-lg sm:w-96">
+    <div className="group relative flex h-[420px] w-72 flex-col overflow-hidden rounded-lg bg-white/90 shadow-md transition-transform hover:translate-x-1 sm:w-96">
       <div className="relative h-2/5 w-full">
         <Image
           src={imgSrc}
