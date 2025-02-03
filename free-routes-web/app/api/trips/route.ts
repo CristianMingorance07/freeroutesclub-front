@@ -6,16 +6,35 @@ export async function GET(request: Request) {
   await dbConnect();
 
   const { searchParams } = new URL(request.url);
-
-  console.log(searchParams);
-
   const title = searchParams.get("title");
-  const startDate = searchParams.get("startDate");
-  const endDate = searchParams.get("endDate");
+  const startDateStr = searchParams.get("startDate");
+  const endDateStr = searchParams.get("endDate");
 
-  
-  
-  const trips = await Trip.find({});
+  const startDate = startDateStr ? new Date(startDateStr) : undefined;
+  const endDate = endDateStr ? new Date(endDateStr) : undefined;
+
+  let query: any = {};
+
+  if (title) {
+    query.title = { $regex: title, $options: "i" };
+  }
+
+  if (startDate && endDate) {
+    query.dates = {
+      $gte: startDate,
+      $lte: endDate,
+    };
+  } else if (startDate) {
+    query.dates.start = { $gte: startDate };
+  } else if (endDate) {
+    const today = new Date();
+    query.dates = {
+      $gte: today,
+      $lte: endDate,
+    };
+  }
+
+  const trips = await Trip.find();
   return NextResponse.json({ success: true, data: trips });
 }
 

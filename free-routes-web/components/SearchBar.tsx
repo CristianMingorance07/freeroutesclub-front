@@ -1,6 +1,6 @@
-import { error } from "console";
 import { useState, useRef, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
+import { ITrip } from "@/models/Trip";
 
 const formatDateEs = (dateString: string): string => {
   if (!dateString) return "";
@@ -11,7 +11,11 @@ const formatDateEs = (dateString: string): string => {
   });
 };
 
-export default function SearchBar() {
+export default function SearchBar({
+  setFilteredTrips,
+}: {
+  setFilteredTrips: (trips: ITrip[]) => void;
+}) {
   const [destination, setDestination] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -27,12 +31,21 @@ export default function SearchBar() {
     }
   }, [startDate, endDate]);
 
-  const handleSearch = () => {
-    console.log("Searching with", {
-      destination,
-      startDate,
-      endDate,
-    });
+  const handleSearch = async () => {
+    try {
+      const res = await fetch(
+        `/api/trips?destination=${destination}&startDate=${startDate}&endDate=${endDate}
+        `,
+        { cache: "no-store" },
+      );
+      if (!res.ok) throw new Error("Failed to fetch trips");
+      const { data }: { data: ITrip[] } = await res.json();
+      console.log(data);
+
+      setFilteredTrips(data);
+    } catch (error) {
+      console.error("Error fetching trips:", error);
+    }
   };
 
   const triggerDatePicker = (type: "start" | "end") => {

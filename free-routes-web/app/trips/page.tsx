@@ -128,8 +128,26 @@ export default function TripsPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.5 }}
       >
-        <SearchBar />
+        <SearchBar setFilteredTrips={setFilteredTrips} />
       </motion.div>
+      {filteredTrips.length > 0 &&
+        trips.map((trip) => (
+          <motion.div
+            key={trip._id}
+            variants={{
+              hidden: { opacity: 0, y: 50 },
+              visible: { opacity: 1, y: 0 },
+            }}
+          >
+            <Link
+              href={`/trips/${trip._id}`}
+              onClick={() => setSelectedTrip(trip)}
+              className="hover:no-underline"
+            >
+              <TripCard trip={trip} />
+            </Link>
+          </motion.div>
+        ))}
 
       {/* Call to Action */}
       <motion.div
