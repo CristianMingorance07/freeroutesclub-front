@@ -9,9 +9,11 @@ import { useTripContext } from "@/context/TripContext";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { CiCircleChevLeft, CiCircleChevRight } from "react-icons/ci";
+import SearchBar from "@/components/SearchBar";
 
 export default function TripsPage() {
   const [trips, setTrips] = useState<Trip[]>([]);
+  const [filteredTrips, setFilteredTrips] = useState<Trip[]>([]);
   const { setSelectedTrip } = useTripContext();
   const carouselRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -43,7 +45,7 @@ export default function TripsPage() {
   useEffect(() => {
     const fetchTrips = async () => {
       try {
-        const res = await fetch("/api/trips", { cache: "no-store" });
+        const res = await fetch("/api/trips?hello=hi", { cache: "no-store" });
         if (!res.ok) throw new Error("Failed to fetch trips");
         const { data }: { data: Trip[] } = await res.json();
         setTrips(data);
@@ -66,16 +68,22 @@ export default function TripsPage() {
       >
         <div className="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
           <h1 className="text-3xl font-extrabold leading-tight text-white sm:text-3xl lg:text-4xl">
-            Explora nuestras rutas
+            Rutas populares
           </h1>
 
           <div className="hidden items-center justify-center gap-4 sm:flex md:mt-0">
-            <button onClick={() => handleScroll("left")}>
+            <button
+              className={`${!canScrollLeft && "cursor-default"}`}
+              onClick={() => handleScroll("left")}
+            >
               <CiCircleChevLeft
                 className={`size-10 rounded-full transition-colors ${canScrollLeft ? "text-white" : "text-gray-600"}`}
               />
             </button>
-            <button onClick={() => handleScroll("right")}>
+            <button
+              className={`${!canScrollRight && "cursor-default"}`}
+              onClick={() => handleScroll("right")}
+            >
               <CiCircleChevRight
                 className={`size-10 rounded-full transition-colors ${canScrollRight && trips.length > 0 ? "text-white" : "text-gray-600"}`}
               />
@@ -89,8 +97,8 @@ export default function TripsPage() {
         >
           {trips.length === 0
             ? Array.from({ length: 3 }).map((_, i) => (
-                <div>
-                  <TripCardLoading key={i} />
+                <div key={i}>
+                  <TripCardLoading />
                 </div>
               ))
             : trips.map((trip) => (
@@ -111,6 +119,16 @@ export default function TripsPage() {
                 </motion.div>
               ))}
         </div>
+      </motion.div>
+
+      {/* Search Bar */}
+      <motion.div
+        className="mt-12 flex justify-center"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.5 }}
+      >
+        <SearchBar />
       </motion.div>
 
       {/* Call to Action */}
