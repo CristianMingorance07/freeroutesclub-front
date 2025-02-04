@@ -17,6 +17,7 @@ export default function TripsPage() {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
+  const [loadingResults, setLoadingResults] = useState(false);
 
   const checkScrollPosition = useCallback(() => {
     if (!carouselRef.current) return;
@@ -44,7 +45,7 @@ export default function TripsPage() {
   useEffect(() => {
     const fetchTrips = async () => {
       try {
-        const res = await fetch("/api/trips?hello=hi", { cache: "no-store" });
+        const res = await fetch("/api/trips", { cache: "no-store" });
         if (!res.ok) throw new Error("Failed to fetch trips");
         const { data }: { data: Trip[] } = await res.json();
         setTrips(data);
@@ -57,16 +58,16 @@ export default function TripsPage() {
   }, []);
 
   return (
-    <section className="relative bg-gradient-to-br from-[#f9fafb] to-[#e3e8f1] py-12">
-      <div className="absolute top-0 z-0 h-[90vh] w-full justify-center bg-[url('/img/bg-trips.png')] bg-cover bg-center bg-no-repeat brightness-50 sm:h-[80vh]"></div>
+    <section className="relative bg-gradient-to-br from-[#f9fafb] to-[#e3e8f1]">
+      <div className="absolute top-0 z-0 h-[90vh] w-full justify-center bg-[url('/img/bg-trips.png')] bg-cover bg-center bg-no-repeat brightness-50"></div>
       <motion.div
-        className="sm:p8 relative z-20 flex h-[80vh] max-w-6xl flex-col justify-center p-5 pr-0 text-center sm:mx-auto sm:h-[80vh]"
+        className="relative z-20 flex h-[90vh] max-w-6xl flex-col justify-center p-5 pr-0 text-center sm:mx-auto sm:h-[90vh] sm:p-0"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
       >
         <div className="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
-          <h1 className="text-3xl font-extrabold leading-tight text-white sm:text-3xl lg:text-4xl">
+          <h1 className="text-4xl font-extrabold leading-tight text-white sm:text-3xl lg:text-4xl">
             Rutas populares
           </h1>
 
@@ -121,14 +122,17 @@ export default function TripsPage() {
       </motion.div>
 
       <motion.div
-        className="mt-0 flex flex-col justify-center sm:mt-12"
+        className="mt-0 flex flex-col justify-center sm:mt-10"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.5 }}
       >
-        <SearchBar setFilteredTrips={setFilteredTrips} />
+        <SearchBar
+          setFilteredTrips={setFilteredTrips}
+          setLoadingResults={setLoadingResults}
+        />
       </motion.div>
-      {filteredTrips.length > 0 && (
+      {filteredTrips.length > 0 && !loadingResults && (
         <motion.div
           className="mx-auto mt-8 flex max-w-6xl flex-wrap justify-center gap-6"
           variants={{
@@ -148,9 +152,14 @@ export default function TripsPage() {
           ))}
         </motion.div>
       )}
+      {loadingResults && (
+        <div className="mt-10 flex justify-center">
+          <TripCardLoading />
+        </div>
+      )}
 
       <motion.div
-        className="mt-16 text-center"
+        className="mt-28 text-center"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.7 }}
@@ -160,7 +169,7 @@ export default function TripsPage() {
           nosotros.
         </p>
         <Link href="/contact">
-          <button className="mt-6 rounded-full bg-gradient-to-r from-[#ED0874] to-[#3B74BF] px-8 py-4 text-lg text-white shadow-md transition-opacity hover:opacity-90">
+          <button className="mb-10 mt-6 rounded-full bg-gradient-to-r from-[#ED0874] to-[#3B74BF] px-8 py-4 text-lg text-white shadow-md transition-opacity hover:opacity-90">
             ¡Contáctanos ya! 🏍️
           </button>
         </Link>
