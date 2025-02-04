@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 import { ITrip } from "@/models/Trip";
+import { set } from "mongoose";
 
 const formatDateEs = (dateString: string): string => {
   if (!dateString) return "";
@@ -13,8 +14,10 @@ const formatDateEs = (dateString: string): string => {
 
 export default function SearchBar({
   setFilteredTrips,
+  setLoadingResults,
 }: {
   setFilteredTrips: (trips: ITrip[]) => void;
+  setLoadingResults: (loading: boolean) => void;
 }) {
   const [destination, setDestination] = useState("");
   const [start, setStart] = useState("");
@@ -41,8 +44,10 @@ export default function SearchBar({
 
       const queryString = queryParams.toString();
       const url = `/api/trips${queryString ? `?${queryString}` : ""}`;
+      setLoadingResults(true);
 
       const res = await fetch(url, { cache: "no-store" });
+      setLoadingResults(false);
       if (!res.ok) throw new Error("Failed to fetch trips");
 
       const { data }: { data: ITrip[] } = await res.json();
@@ -65,7 +70,7 @@ export default function SearchBar({
   };
 
   return (
-    <div className="sm:mx-0 w-full">
+    <>
       <div className="mx-auto flex w-full max-w-6xl flex-col items-center border-2 border-gray-200 bg-white py-9 text-[#08338F] shadow-sm transition-shadow hover:shadow-md sm:flex-row sm:rounded-full sm:p-0">
         <div className="relative w-full flex-1 rounded-l-full px-4 py-3 hover:bg-gray-50 sm:py-3 sm:pl-6 sm:pr-4">
           <label className="mb-1 block text-xs font-semibold">Destino</label>
@@ -94,7 +99,7 @@ export default function SearchBar({
               onChange={(e) => setStart(e.target.value)}
             />
             <span className="text-sm">
-              {start ? formatDateEs(start) : "Selecciona fecha"}
+              {start ? formatDateEs(start) : "Selecciona una fecha"}
             </span>
           </div>
         </button>
@@ -115,7 +120,7 @@ export default function SearchBar({
               onChange={(e) => setEndDate(e.target.value)}
             />
             <span className="text-sm">
-              {endDate ? formatDateEs(endDate) : "Selecciona fecha"}
+              {endDate ? formatDateEs(endDate) : "Selecciona una fecha"}
             </span>
           </div>
         </button>
@@ -134,6 +139,6 @@ export default function SearchBar({
       {error && (
         <p className="block p-4 font-semibold text-red-500">*{error}</p>
       )}
-    </div>
+    </>
   );
 }
