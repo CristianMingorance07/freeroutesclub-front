@@ -1,141 +1,105 @@
 "use client";
 
-import {
-  FaMotorcycle,
-  FaSmile,
-  FaHeart,
-  FaMapMarkedAlt,
-  FaUserShield,
-} from "react-icons/fa";
-import Cta from "@/components/common/Cta";
+import { FaWhatsapp, FaInstagram, FaSpotify, FaYoutube } from "react-icons/fa";
+import { motion } from "framer-motion";
 
-export default function CommunityPage() {
+export default function SocialMediaPage() {
   return (
-    <div className="flex min-h-screen flex-col items-center bg-gradient-to-b from-blue-50 via-white to-blue-100 p-4 text-gray-800 sm:p-8">
-      {/* Hero Section */}
-      <header className="mb-16 text-center">
-        <h1 className="mb-4 text-4xl font-extrabold text-blue-600 drop-shadow-lg sm:text-5xl">
-          ¡Bienvenido a Free Routes Club! 🏍️
-        </h1>
-        <p className="mx-auto max-w-3xl text-base text-gray-700 sm:text-lg">
-          ¿Tienes una moto? ¿Te gusta la aventura? ¿Te da miedo quedarte atrás?
-          Tranquilo, nosotros también empezamos así. En Free Routes Club, todos
-          tienen un lugar. Con más de{" "}
-          <span className="font-bold text-blue-500">500 compañeros</span>, hemos
-          aprendido que las mejores historias se escriben en dos ruedas.
-        </p>
-        <div className="mt-8">
-          <Cta
-            href="https://chat.whatsapp.com/Kdx5sfIWw2TFWjxE3h8Ev1"
-            text="Únete Ahora"
-          />
-        </div>
-      </header>
-
-      {/* Beneficios Clave */}
-      <section className="mb-16 grid w-full max-w-6xl grid-cols-1 gap-8 md:grid-cols-3">
-        <div className="flex flex-col items-center rounded-xl bg-white p-6 text-center shadow-lg">
-          <FaSmile className="mb-4 text-5xl text-yellow-500 sm:text-6xl" />
-          <h3 className="mb-2 text-lg font-bold sm:text-xl">Amigos Nuevos</h3>
-          <p className="text-sm text-gray-700 sm:text-base">
-            Olvídate de rodar solo. Aquí encontrarás amigos que saben que el
-            café de gasolinera también cuenta como gourmet.
+    <>
+      <section className="relative flex min-h-dvh flex-col items-center justify-center pt-10 text-white lg:pt-0">
+        <div className="absolute top-0 h-full w-full justify-center bg-[url('/img/bg-community.png')] bg-cover bg-center bg-no-repeat brightness-50"></div>
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="z-10 p-8 text-center"
+        >
+          <h2 className="mb-4 text-4xl font-bold sm:text-5xl 2xl:text-7xl">
+            Conecta con Nosotros
+          </h2>
+          <p className="text-2xl sm:text-3xl 2xl:text-5xl">
+            ¡Nuestra comunidad motera está donde tú estés!
           </p>
-        </div>
-        <div className="flex flex-col items-center rounded-xl bg-white p-6 text-center shadow-lg">
-          <FaUserShield className="mb-4 text-5xl text-green-500 sm:text-6xl" />
-          <h3 className="mb-2 text-lg font-bold sm:text-xl">
-            Nunca Estás Solo
-          </h3>
-          <p className="text-sm text-gray-700 sm:text-base">
-            Siempre salimos en grupos liderados por dos guías. Si te pierdes,
-            será porque estabas mirando demasiado el paisaje.
-          </p>
-        </div>
-        <div className="flex flex-col items-center rounded-xl bg-white p-6 text-center shadow-lg">
-          <FaMapMarkedAlt className="mb-4 text-5xl text-red-500 sm:text-6xl" />
-          <h3 className="mb-2 text-lg font-bold sm:text-xl">
-            Rutas de Ensueño
-          </h3>
-          <p className="text-sm text-gray-700 sm:text-base">
-            Desde el asfalto perfecto hasta pistas que te harán reír (o llorar),
-            tenemos algo para todos los gustos.
-          </p>
-        </div>
-      </section>
+        </motion.div>
+        <motion.section
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="mb-16 grid w-full max-w-6xl grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
+        >
+          {/* WhatsApp */}
+          <div className="group relative mx-auto flex w-72 transform flex-col items-center justify-between rounded-xl bg-white/90 p-6 text-[#08338F] shadow-lg transition-transform hover:-translate-y-1 lg:w-auto">
+            <FaWhatsapp className="mb-4 text-6xl text-green-500" />
+            <h3 className="mb-4 text-xl font-bold">Grupo de WhatsApp</h3>
+            <p className="mb-6 text-center text-sm leading-relaxed text-gray-700 sm:text-base">
+              Conéctate con otros moteros y moteras, organiza rutas y comparte
+              momentos. ¡Donde todo comienza!
+            </p>
+            <a
+              href="https://chat.whatsapp.com/Kdx5sfIWw2TFWjxE3h8Ev1"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full rounded-full bg-green-500 py-3 text-center font-bold text-white transition hover:bg-green-600"
+            >
+              Únete Ahora
+            </a>
+          </div>
 
-      {/* Enfoque en los Viajes */}
-      <section className="mb-16 max-w-5xl rounded-2xl bg-blue-600 p-6 text-white shadow-xl sm:p-8">
-        <h2 className="mb-6 text-center text-2xl font-bold sm:text-3xl">
-          ¡Viaja con Nosotros!
-        </h2>
-        <p className="mb-6 text-center text-sm sm:text-lg">
-          Más que rutas, son experiencias que recordarás para siempre. Cada
-          viaje está diseñado para combinar aventura, paisajes épicos y momentos
-          inolvidables. Desde las carreteras costeras hasta las montañas, cada
-          kilómetro es una nueva historia.
-        </p>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-          <div className="flex flex-col items-center text-center">
-            <FaMotorcycle className="mb-4 text-4xl text-yellow-300 sm:text-6xl" />
-            <h3 className="text-lg font-bold sm:text-xl">Rutas Guiadas</h3>
-            <p className="text-sm sm:text-base">
-              Planificamos cada detalle para que solo tengas que preocuparte por
-              disfrutar del viaje.
+          {/* Instagram */}
+          <div className="group relative mx-auto flex w-72 transform flex-col items-center justify-between rounded-xl bg-white/90 p-6 text-[#08338F] shadow-lg transition-transform hover:-translate-y-1 lg:w-auto">
+            <FaInstagram className="t from-yellow-500 to-purple-500 bg-clip-text text-6xl text-pink-500" />
+            <h3 className="mb-4 text-xl font-bold">Instagram Free Routes</h3>
+            <p className="mb-6 text-center text-sm leading-relaxed text-gray-700 sm:text-base">
+              Descubre nuestras rutas, fotos épicas y contenido exclusivo. Vive
+              la pasión de Free Routes.
             </p>
+            <a
+              href="https://instagram.com/freeroutesclub"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full rounded-full bg-gradient-to-r from-yellow-500 via-pink-500 to-purple-500 py-3 text-center font-bold text-white transition hover:opacity-90"
+            >
+              Seguir en Instagram
+            </a>
           </div>
-          <div className="flex flex-col items-center text-center">
-            <FaHeart className="mb-4 text-4xl text-pink-300 sm:text-6xl" />
-            <h3 className="text-lg font-bold sm:text-xl">Ambiente Familiar</h3>
-            <p className="text-sm sm:text-base">
-              Porque viajar en moto no solo es conducir, es compartir momentos
-              con personas que vibran como tú.
-            </p>
-          </div>
-          <div className="flex flex-col items-center text-center">
-            <FaMapMarkedAlt className="mb-4 text-4xl text-green-300 sm:text-6xl" />
-            <h3 className="text-lg font-bold sm:text-xl">
-              Destinos Inolvidables
-            </h3>
-            <p className="text-sm sm:text-base">
-              Desde los Pirineos hasta la Costa, diseñamos recorridos que te
-              dejarán sin palabras.
-            </p>
-          </div>
-        </div>
-        <div className="mt-8 text-center">
-          <button className="transform rounded-full bg-gradient-to-r from-yellow-400 to-pink-400 px-6 py-3 text-sm font-bold text-white shadow-lg transition-transform hover:scale-105 hover:shadow-2xl sm:px-8 sm:text-lg">
-            Explora Próximos Viajes
-          </button>
-        </div>
-      </section>
 
-      {/* Preguntas Frecuentes */}
-      <section className="mb-16 max-w-5xl text-left">
-        <h2 className="mb-8 text-center text-2xl font-bold text-blue-600 sm:text-3xl">
-          Preguntas Frecuentes
-        </h2>
-        <div className="space-y-4">
-          <div className="rounded-xl bg-white p-6 shadow-lg">
-            <h3 className="mb-2 text-lg font-bold sm:text-xl">
-              ¿Qué pasa si soy nuevo?
-            </h3>
-            <p className="text-sm text-gray-700 sm:text-base">
-              ¡Perfecto! Nuestras rutas están diseñadas para todos. Lo
-              importante es tener ganas de disfrutar y aprender.
+          {/* Podcast La Kedada */}
+          <div className="group relative mx-auto flex w-72 transform flex-col items-center justify-between rounded-xl bg-white/90 p-6 text-[#08338F] shadow-lg transition-transform hover:-translate-y-1 lg:w-auto">
+            <FaSpotify className="mb-4 text-6xl text-green-400" />
+            <h3 className="mb-4 text-xl font-bold">Podcast: La Kedada</h3>
+            <p className="mb-6 text-center text-sm leading-relaxed text-gray-700 sm:text-base">
+              Escucha historias del mundo del motor en Spotify, YouTube e
+              Instagram. ¡No te pierdas un episodio!
             </p>
+            <div className="flex w-full justify-center gap-4">
+              <a
+                href="https://open.spotify.com/show/6GsMQvMot1Sap1KTBoNwtI?si=db4465086ef04165"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full bg-green-400 p-3 text-white transition hover:bg-green-500"
+              >
+                <FaSpotify className="text-2xl" />
+              </a>
+              <a
+                href="https://www.youtube.com/@LaKedadaPodcast/videos"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full bg-red-500 p-3 text-white transition hover:bg-red-600"
+              >
+                <FaYoutube className="text-2xl" />
+              </a>
+              <a
+                href="https://instagram.com/la-kedada"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full bg-gradient-to-r from-yellow-500 via-pink-500 to-purple-500 p-3 text-white transition hover:opacity-90"
+              >
+                <FaInstagram className="text-2xl" />
+              </a>
+            </div>
           </div>
-          <div className="rounded-xl bg-white p-6 shadow-lg">
-            <h3 className="mb-2 text-lg font-bold sm:text-xl">
-              ¿Necesito equipamiento especial?
-            </h3>
-            <p className="text-sm text-gray-700 sm:text-base">
-              Un casco, guantes y ganas de pasarlo bien son suficientes para
-              empezar. Pero si traes una chaqueta molona, también cuenta.
-            </p>
-          </div>
-        </div>
+        </motion.section>
       </section>
-    </div>
+    </>
   );
 }
