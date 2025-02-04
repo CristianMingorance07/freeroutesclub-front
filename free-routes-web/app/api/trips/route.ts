@@ -36,7 +36,9 @@ export async function GET(request: Request) {
     query["dates.end"] = { $lte: endDate };
   }
 
-  const trips = await Trip.find(query);
+  const trips = await Trip.find(query).select(
+    "title duration description imageUrl price",
+  );
   return NextResponse.json({ success: true, data: trips });
 }
 
