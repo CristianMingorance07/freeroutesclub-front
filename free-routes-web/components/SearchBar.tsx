@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 import { ITrip } from "@/models/Trip";
-import { set } from "mongoose";
 
 const formatDateEs = (dateString: string): string => {
   if (!dateString) return "";
