@@ -25,7 +25,10 @@ export default function CommunityPage() {
           aprendido que las mejores historias se escriben en dos ruedas.
         </p>
         <div className="mt-8">
-          <Cta href="/trips" text="Únete Ahora" />
+          <Cta
+            href="https://chat.whatsapp.com/Kdx5sfIWw2TFWjxE3h8Ev1"
+            text="Únete Ahora"
+          />
         </div>
       </header>
 
@@ -133,28 +136,6 @@ export default function CommunityPage() {
           </div>
         </div>
       </section>
-
-      {/* Llamada a la Acción */}
-      <section className="mb-16 text-center">
-        <h3 className="mb-4 text-2xl font-bold sm:text-3xl">
-          ¿Listo para la aventura?
-        </h3>
-        <p className="mx-auto mb-6 max-w-xl text-sm text-gray-700 sm:text-lg">
-          Ven con nosotros, ríe, explora, y descubre lo que significa ser parte
-          de una comunidad que vive para rodar. ¡Tu moto te está esperando!
-        </p>
-        <button className="transform rounded-full bg-gradient-to-r from-blue-500 to-pink-500 px-6 py-3 text-sm font-bold text-white shadow-lg transition-transform hover:scale-105 hover:shadow-2xl sm:px-8 sm:text-lg">
-          Únete Ahora
-        </button>
-      </section>
-
-      {/* Pie de Página */}
-      <footer className="mt-12 text-center text-sm text-gray-600">
-        <p>
-          Free Routes Club © {new Date().getFullYear()} - Aventuras en dos
-          ruedas, con café y risas garantizadas.
-        </p>
-      </footer>
     </div>
   );
 }

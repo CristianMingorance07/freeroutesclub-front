@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { FaMapMarkedAlt, FaMotorcycle, FaClock, FaUsers } from "react-icons/fa";
 import Cta from "@/components/common/Cta";
 

@@ -32,7 +32,7 @@ export default function SocialMediaPage() {
             ¡Donde todo comienza!
           </p>
           <a
-            href="https://chat.whatsapp.com/tu-enlace-de-grupo"
+            href="https://chat.whatsapp.com/Kdx5sfIWw2TFWjxE3h8Ev1"
             target="_blank"
             rel="noopener noreferrer"
             className="w-full rounded-full bg-green-500 py-3 text-center font-bold text-white transition hover:bg-green-600"
