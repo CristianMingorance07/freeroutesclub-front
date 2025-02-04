@@ -103,10 +103,10 @@ export default function Header() {
             <li className="w-full p-4 sm:p-0">
               <Link
                 onClick={handleCloseMenu}
-                href="/social-media"
+                href="/about-us"
                 className={`transition-colors hover:text-black ${isMobile && "text-white"}`}
               >
-                Redes
+                Quiénes somos
               </Link>
             </li>
           </ul>
