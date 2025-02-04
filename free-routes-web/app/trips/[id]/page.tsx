@@ -11,6 +11,7 @@ import ImageGallery from "@/components/ImageGallery";
 import ItineraryDayDetails from "@/components/ItineraryDayDetails";
 import Loader from "@/components/common/Loader";
 import ResettableMap from "@/components/ResettableMap";
+import Cta from "@/components/common/Cta";
 
 export default function TripDetailPage() {
   const { id: tripId } = useParams();
@@ -18,7 +19,7 @@ export default function TripDetailPage() {
   const [trip, setTrip] = useState<ITrip>();
 
   const [isButtonVisible, setIsButtonVisible] = useState(false);
-  const reserveButtonRef = useRef<HTMLButtonElement | null>(null);
+  const reserveButtonRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     fetch(`/api/trips/${tripId}`)
@@ -91,16 +92,17 @@ export default function TripDetailPage() {
               </motion.h3>
 
               <FlipClock departure={trip.departure} />
-              <Link href={`/trips/${trip._id}/reserve`}>
-                <motion.button
-                  ref={reserveButtonRef}
-                  className="mt-6 rounded-full bg-gradient-to-r from-[#ED0874] to-[#3B74BF] px-6 py-3 text-base text-white shadow-lg transition-transform hover:scale-105 sm:mt-8 sm:px-8 sm:py-3 sm:text-xl"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  ¡Reserva Ahora!
-                </motion.button>
-              </Link>
+              <motion.div
+                ref={reserveButtonRef}
+                className="mt-6 sm:mt-8"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Cta
+                  href={`/trips/${trip._id}/reserve`}
+                  text="¡Reserva Ahora!"
+                />
+              </motion.div>
             </div>
           </motion.section>
 
@@ -245,9 +247,10 @@ export default function TripDetailPage() {
                   </p>
                 </div>
 
-                <button className="rounded-full bg-gradient-to-r from-[#ED0874] to-[#3B74BF] px-6 py-3 font-bold tracking-wide text-white transition-transform hover:scale-105 hover:shadow-lg">
-                  Reservar Ahora
-                </button>
+                <Cta
+                  href={`/trips/${trip._id}/reserve`}
+                  text="¡Reserva Ahora!"
+                />
                 <p className="mt-4 text-center text-sm leading-relaxed tracking-wide text-gray-500">
                   o paga en 3 plazos de {(trip.price / 3).toFixed(2)} € sin
                   intereses.
@@ -458,13 +461,15 @@ export default function TripDetailPage() {
                   plazas!
                 </p>
                 <Link href={`/trips/${trip._id}/reserve`}>
-                  <motion.button
-                    className="rounded-full bg-gradient-to-r from-[#ED0874] to-[#3B74BF] px-6 py-2 text-sm text-white shadow-lg transition-transform hover:scale-105 sm:px-8 sm:py-3 sm:text-lg"
+                  <motion.div
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    ¡Reserva Ahora!
-                  </motion.button>
+                    <Cta
+                      href={`/trips/${trip._id}/reserve`}
+                      text="¡Reserva Ahora!"
+                    />
+                  </motion.div>
                 </Link>
               </motion.div>
             )}

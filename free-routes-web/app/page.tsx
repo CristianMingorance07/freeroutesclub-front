@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { FaMapMarkedAlt, FaMotorcycle, FaClock, FaUsers } from "react-icons/fa";
+import Cta from "@/components/common/Cta";
 
 export default function Page() {
   return (
@@ -14,11 +14,7 @@ export default function Page() {
             La libertad sobre dos ruedas
           </p>
           <div className="flex w-full justify-center">
-            <Link href="/trips" className="mx-auto mt-6">
-              <button className="rounded-full bg-gradient-to-r from-[#ED0874] to-[#3B74BF] px-8 py-4 text-lg text-white shadow-md transition-transform hover:scale-105">
-                Explora nuestras rutas
-              </button>
-            </Link>
+            <Cta href={"/trips"} text={"Explora nuestras rutas"} />
           </div>
         </div>
       </section>
@@ -28,9 +24,9 @@ export default function Page() {
             Aventuras para recordar
           </h3>
           <p className="mx-auto mb-12 max-w-2xl text-center text-lg text-gray-600">
-            Embárcate en un viaje repleto de emoción sobre dos
-            ruedas. Conoce a nuevos amigos, comparte rutas sorprendentes y
-            descubre la libertad de rodar sin límites.
+            Embárcate en un viaje repleto de emoción sobre dos ruedas. Conoce a
+            nuevos amigos, comparte rutas sorprendentes y descubre la libertad
+            de rodar sin límites.
           </p>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
             <div className="flex flex-col items-center rounded-lg bg-white p-6 text-center shadow-md">
