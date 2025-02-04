@@ -3,7 +3,6 @@
 import dynamic from "next/dynamic";
 import { FaWhatsapp } from "react-icons/fa";
 import successAnimation from "@/public/animations/success.json";
-import Cta from "@/components/common/Cta";
 
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 
