@@ -109,7 +109,7 @@ export default function ReservationForm({
     setCouponError("");
 
     try {
-      const response = await fetch("/api/reservations", {
+      const response = await fetch("/api/bookings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

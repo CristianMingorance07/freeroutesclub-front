@@ -64,7 +64,7 @@ export async function POST(req: Request) {
         },
       ],
       mode: "payment",
-      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/success`,
+      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/success/${booking._id}`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/cancel`,
       metadata: { bookingId: booking._id.toString() },
     });
