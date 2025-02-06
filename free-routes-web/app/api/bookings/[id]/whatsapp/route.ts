@@ -16,7 +16,6 @@ export async function GET(
 ) {
   await dbConnect();
   const { id } = await params;
-  console.log("ROUTE GET /bookings/%5Bid%5D/whatsapp");
 
   try {
     const booking = (await Booking.findById(id)
