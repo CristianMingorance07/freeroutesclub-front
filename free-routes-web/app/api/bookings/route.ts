@@ -66,7 +66,11 @@ export async function POST(req: Request) {
       mode: "payment",
       success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/success/${booking._id}`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/cancel`,
-      metadata: { bookingId: booking._id.toString() },
+      metadata: {
+        bookingId: booking._id.toString(),
+        isFullPayment: booking.isFullPayment,
+        tripId: trip._id.toString(),
+      },
     });
 
     return NextResponse.json({ url: session.url });
