@@ -115,154 +115,155 @@ export default function TripDetailPage() {
                 animate="visible"
                 transition={{duration: 0.8, delay: 0.2}}
             >
-              <div className="mx-auto flex max-w-7xl flex-col gap-4 lg:flex-row">
+              <div className="mx-auto flex max-w-6xl flex-col gap-4 lg:flex-row">
                 <div className="lg:w-2/3">
                   {/* Contenedor para las primeras dos secciones */}
-                  <div className="flex flex-col gap-4">
+                  <div className="flex flex-col gap-8">
                     {trip.sections?.slice(0, 2).map((section) => (
-                        <div
-                            key={section.id}
-                            className="rounded-lg bg-white p-6 transition-transform"
-                        >
-                          <div>
-                            <h3 className="mb-4 text-3xl font-bold tracking-wide text-[#0F172A] sm:text-4xl">
-                              {section.title}
-                            </h3>
-                            {section.content?.paragraphs?.map((paragraph, idx) => (
-                                <p
-                                    key={idx}
-                                    className="mb-4 text-lg leading-relaxed tracking-wide text-gray-700"
-                                    dangerouslySetInnerHTML={{
-                                      __html: paragraph.replace(
-                                          /<a /g,
-                                          "<a class='text-blue-600 font-bold hover:underline'",
-                                      ),
-                                    }}
-                                />
-                            ))}
-                            {section.content?.list?.length > 0 && (
-                                <ul className="ml-4 list-disc space-y-2 text-gray-700">
-                                  {section.content.list.map((item, idx) => (
-                                      <li
-                                          key={idx}
-                                          className="text-lg leading-relaxed tracking-wide"
-                                          dangerouslySetInnerHTML={{
-                                            __html: item.replace(
-                                                /<a /g,
-                                                "<a class='text-blue-600 font-bold hover:underline'",
-                                            ),
-                                          }}
-                                      />
-                                  ))}
-                                </ul>
-                            )}
-                          </div>
+                        <div key={section.id} className="max-w-4xl mx-auto">
+                          <h3
+                              className="mb-5 text-[22px] sm:text-[24px] font-semibold text-[#3D4756] leading-tight tracking-wide"
+                              style={{fontFamily: "'Poppins', sans-serif"}}
+                          >
+                            {section.title}
+                          </h3>
+
+                          {section.content?.paragraphs?.map((paragraph, idx) => (
+                              <p
+                                  key={idx}
+                                  className="mb-5 text-[18px] sm:text-[19px] text-[#4A5668] leading-relaxed tracking-normal font-light"
+                                  style={{fontFamily: "'Inter', sans-serif"}}
+                                  dangerouslySetInnerHTML={{
+                                    __html: paragraph.replace(
+                                        /<a /g,
+                                        "<a class='text-[#1E40AF] font-medium hover:text-[#1C3D95] transition-all duration-200 underline decoration-1'"
+                                    ),
+                                  }}
+                              />
+                          ))}
+
+                          {section.content?.list?.length > 0 && (
+                              <ul className="ml-6 list-disc space-y-3 text-[#4A5668]">
+                                {section.content.list.map((item, idx) => (
+                                    <li
+                                        key={idx}
+                                        className="text-[17px] sm:text-[18px] leading-relaxed tracking-wide font-light"
+                                        style={{fontFamily: "'Inter', sans-serif"}}
+                                        dangerouslySetInnerHTML={{
+                                          __html: item.replace(
+                                              /<a /g,
+                                              "<a class='text-[#1E40AF] font-medium hover:text-[#1C3D95] transition-all duration-200 underline decoration-1'"
+                                          ),
+                                        }}
+                                    />
+                                ))}
+                              </ul>
+                          )}
+
                           {section.images?.length > 0 && (
-                              <div className="relative">
+                              <div className="mt-6">
                                 <ImageGallery images={section.images}/>
                               </div>
                           )}
                         </div>
                     ))}
                   </div>
+
 
                   {/* Contenedor para las secciones restantes */}
                   <div className="mt-4 flex flex-col gap-4 lg:flex-row lg:flex-wrap lg:justify-between">
                     {trip.sections?.slice(2).map((section) => (
-                        <div
-                            key={section.id}
-                            className="w-full rounded-lg bg-white p-6 transition-transform lg:-ml-4 lg:w-1/2"
-                        >
-                          <div>
-                            <h3 className="mb-2 text-xl font-semibold tracking-wide text-[#0F172A]">
-                              {section.title}
-                            </h3>
-                            {section.content?.paragraphs?.map((paragraph, idx) => (
-                                <p
-                                    key={idx}
-                                    className="mb-2 text-sm leading-relaxed tracking-wide text-gray-700"
-                                    dangerouslySetInnerHTML={{
-                                      __html: paragraph.replace(
-                                          /<a /g,
-                                          "<a class='text-blue-600 font-bold hover:underline'",
-                                      ),
-                                    }}
-                                />
-                            ))}
-                            {section.content?.list?.length > 0 && (
-                                <ul className="ml-4 list-disc space-y-1 tracking-wide text-gray-700">
-                                  {section.content.list.map((item, idx) => (
-                                      <li
-                                          key={idx}
-                                          className="text-sm leading-relaxed"
-                                          dangerouslySetInnerHTML={{
-                                            __html: item.replace(
-                                                /<a /g,
-                                                "<a class='text-blue-600 font-bold hover:underline'",
-                                            ),
-                                          }}
-                                      />
-                                  ))}
-                                </ul>
-                            )}
-                          </div>
+                        <div key={section.id} className="w-full lg:w-[48%]">
+                          <h3
+                              className="mb-2 text-[18px] sm:text-[20px] font-semibold text-[#3D4756] leading-tight tracking-wide"
+                              style={{ fontFamily: "'Poppins', sans-serif" }}
+                          >
+                            {section.title}
+                          </h3>
+
+                          {section.content?.paragraphs?.map((paragraph, idx) => (
+                              <p
+                                  key={idx}
+                                  className="mb-3 text-[15px] sm:text-[16px] text-[#4A5668] leading-relaxed tracking-normal font-light"
+                                  style={{ fontFamily: "'Inter', sans-serif" }}
+                                  dangerouslySetInnerHTML={{
+                                    __html: paragraph.replace(
+                                        /<a /g,
+                                        "<a class='text-[#1E40AF] font-medium hover:text-[#1C3D95] transition-all duration-200 underline decoration-1'"
+                                    ),
+                                  }}
+                              />
+                          ))}
+
+                          {section.content?.list?.length > 0 && (
+                              <ul className="ml-5 list-disc space-y-2 text-[#4A5668]">
+                                {section.content.list.map((item, idx) => (
+                                    <li
+                                        key={idx}
+                                        className="text-[15px] sm:text-[16px] leading-relaxed tracking-wide font-light"
+                                        style={{ fontFamily: "'Inter', sans-serif" }}
+                                        dangerouslySetInnerHTML={{
+                                          __html: item.replace(
+                                              /<a /g,
+                                              "<a class='text-[#1E40AF] font-medium hover:text-[#1C3D95] transition-all duration-200 underline decoration-1'"
+                                          ),
+                                        }}
+                                    />
+                                ))}
+                              </ul>
+                          )}
+
                           {section.images?.length > 0 && (
-                              <div className="relative">
-                                <ImageGallery images={section.images}/>
+                              <div className="mt-4">
+                                <ImageGallery images={section.images} />
                               </div>
                           )}
                         </div>
                     ))}
                   </div>
+
                 </div>
                 {/* Bloque de información adicional */}
                 <aside
-                    className="relative order-2 h-fit rounded-lg bg-white p-6 shadow-lg sm:static lg:sticky lg:top-20 lg:order-none">
-                  <h4 className="mb-4 text-2xl font-extrabold tracking-wide text-[#ED0874]">
+                    className="relative order-2 h-fit rounded-lg bg-white p-5 shadow-lg sm:static lg:sticky lg:top-20 lg:order-none lg:max-w-[320px] w-full"
+                >
+                  <h4 className="mb-4 text-xl font-extrabold tracking-wide text-[#ED0874]">
                     {trip.title}
                   </h4>
-                  <p className="mb-6 text-lg leading-relaxed tracking-wide text-gray-600 font-bold">
-                    {trip.duration} • Salida:{" "}
-                    {new Date(trip.departure.date).toLocaleDateString()}
+                  <p className="mb-6 text-base leading-relaxed tracking-wide text-gray-600 font-bold">
+                    {trip.duration} • Salida: {new Date(trip.departure.date).toLocaleDateString()}
                   </p>
 
                   <div className="mb-6">
-                    <p className="text-4xl font-extrabold text-[#3B74BF]">
+                    <p className="text-3xl font-extrabold text-[#3B74BF]">
                       {trip.price} €
-                      <span className="ml-2 text-xl text-gray-400 line-through">
-                      {(trip.price + 100).toFixed(2)} €
-                    </span>
+                      <span className="ml-2 text-lg text-gray-400 line-through">
+        {(trip.price + 100).toFixed(2)} €
+      </span>
                     </p>
                     <p className="text-sm leading-relaxed text-gray-600">
                       Reserva tu plaza con un depósito de{" "}
                       <span className="font-bold text-[#ED0874]">
-                      {(trip.price * 0.45).toFixed(2)} €
-                    </span>
+        {(trip.price * 0.45).toFixed(2)} €
+      </span>
                     </p>
-
                   </div>
 
-                  <Cta
-                      href={`/trips/${trip._id}/reserve`}
-                      text="¡Reserva Ahora!"
-                  />
-                  <p className="mt-4 text-center text-sm leading-relaxed tracking-wide text-gray-500">
-                    o paga en 3 plazos de {(trip.price / 3).toFixed(2)} € sin
-                    intereses.
+                  <Cta href={`/trips/${trip._id}/reserve`} text="¡Reserva Ahora!" />
+
+                  <p className="mt-4 text-center text-xs leading-relaxed tracking-wide text-gray-500">
+                    o paga en 3 plazos de {(trip.price / 3).toFixed(2)} € sin intereses.
                   </p>
 
-                  <hr className="my-6"/>
+                  <hr className="my-6" />
 
                   <div className="mb-6">
-                    <h4 className="mb-2 text-lg font-bold tracking-wide text-[#3B74BF]">
+                    <h4 className="mb-2 text-base font-bold tracking-wide text-[#3B74BF]">
                       Qué está incluido
                     </h4>
-                    <ul className="space-y-2 text-sm text-gray-700">
+                    <ul className="space-y-2 text-xs text-gray-700">
                       {trip.inclusions.map((inclusion, idx) => (
-                          <li
-                              key={idx}
-                              className="flex items-start leading-relaxed"
-                          >
+                          <li key={idx} className="flex items-start leading-relaxed">
                             <span className="mr-2 text-green-500">✅</span>
                             {inclusion}
                           </li>
@@ -270,21 +271,18 @@ export default function TripDetailPage() {
                     </ul>
                   </div>
 
-
-                  <hr className="my-6"/>
+                  <hr className="my-6" />
 
                   <div className="mb-6">
-                    <h4 className="mb-2 text-lg font-bold tracking-wide text-[#3B74BF]">
+                    <h4 className="mb-2 text-base font-bold tracking-wide text-[#3B74BF]">
                       Puntos de Interés
                     </h4>
                     <ul className="space-y-2">
-                      {trip.additionalDetails.pointsOfInterest.map(
-                          (point, idx) => (
-                              <li key={idx} className="text-sm leading-relaxed">
-                                <strong>{point.name}:</strong> {point.description}
-                              </li>
-                          ),
-                      )}
+                      {trip.additionalDetails.pointsOfInterest.map((point, idx) => (
+                          <li key={idx} className="text-xs leading-relaxed">
+                            <strong>{point.name}:</strong> {point.description}
+                          </li>
+                      ))}
                     </ul>
                   </div>
 
@@ -293,12 +291,13 @@ export default function TripDetailPage() {
                         href="https://www.weroad.es/legal/seguro-medico-equipaje"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-sm font-bold tracking-wide text-blue-600 hover:underline"
+                        className="text-xs font-bold tracking-wide text-blue-600 hover:underline"
                     >
                       Seguro médico y maletas (cobertura hasta 50,000€)
                     </a>
                   </div>
                 </aside>
+
               </div>
             </motion.section>
 
