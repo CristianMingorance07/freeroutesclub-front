@@ -5,7 +5,18 @@ import Image from "next/image";
 export default function ItineraryDayDetails({
                                               day,
                                             }: {
-  day: { day: number; title: string; description: string; details: { morning?: string; midday?: string; night?: string }; image?: string };
+  day: {
+    day: number;
+    title: string;
+    details: {
+      morning?: string;
+      midday?: string;
+      afternoon?: string;
+      night?: string;
+    };
+    included?: string[];
+    image?: string;
+  };
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -27,14 +38,17 @@ export default function ItineraryDayDetails({
       >
         <div className="flex w-full items-center justify-between">
           <h3 className="text-lg font-semibold text-gray-900 tracking-wide">
-            {`Día ${day.day}:`} <span className="ml-2 font-normal text-gray-600">{`${day.title}`}</span>
+            {`Día ${day.day}:`}{" "}
+            <span className="ml-2 font-normal text-gray-600">{day.title}</span>
           </h3>
           <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-gray-600 hover:text-gray-900 transition-all focus:outline-none"
           >
             <svg
-                className={`h-6 w-6 transform transition-transform ${isOpen ? "rotate-45" : ""}`}
+                className={`h-6 w-6 transform transition-transform ${
+                    isOpen ? "rotate-45" : ""
+                }`}
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
@@ -47,6 +61,7 @@ export default function ItineraryDayDetails({
             </svg>
           </button>
         </div>
+
         <AnimatePresence>
           {isOpen && (
               <motion.div
@@ -56,25 +71,54 @@ export default function ItineraryDayDetails({
                   exit="hidden"
                   className="mt-4 space-y-5 text-gray-700 text-base leading-relaxed"
               >
-                <p className="p-4 bg-white rounded-lg border border-gray-300 shadow-sm">{day.description}</p>
                 {day.details.morning && (
-                    <div className="p-4 bg-white rounded-lg border-l-4 border-[#6b7280]">
+                    <div className="p-4 bg-white rounded-lg ">
                       <h4 className="text-gray-900 font-medium">🌅 Mañana</h4>
                       <p>{day.details.morning}</p>
                     </div>
                 )}
                 {day.details.midday && (
-                    <div className="p-4 bg-white rounded-lg border-l-4 border-[#6b7280]">
-                      <h4 className="text-gray-900 font-medium">🌞 Medio día</h4>
+                    <div className="p-4 bg-white rounded-lg ">
+                      <h4 className="text-gray-900 font-medium">🌞 Mediodía</h4>
                       <p>{day.details.midday}</p>
                     </div>
                 )}
+                {day.details.afternoon && (
+                    <div className="p-4 bg-white rounded-lg ">
+                      <h4 className="text-gray-900 font-medium">🌆 Tarde</h4>
+                      <p>{day.details.afternoon}</p>
+                    </div>
+                )}
                 {day.details.night && (
-                    <div className="p-4 bg-white rounded-lg border-l-4 border-[#6b7280]">
+                    <div className="p-4 bg-white rounded-lg ">
                       <h4 className="text-gray-900 font-medium">🌙 Noche</h4>
                       <p>{day.details.night}</p>
                     </div>
                 )}
+                {day.included && day.included.length > 0 && (
+                    <div className="p-6 rounded-xl bg-white/40 backdrop-blur-lg shadow-lg border border-white/20">
+                      <h4 className="text-xl font-semibold text-gray-900 tracking-wide flex items-center mb-4">
+                        📄 <span className="ml-2">Incluido en el viaje</span>
+                      </h4>
+                      <ul className="space-y-3">
+                        {day.included.map((item, index) => (
+                            <li
+                                key={index}
+                                className="flex items-center gap-5 p-4 rounded-lg bg-white/30 backdrop-blur-lg shadow-[0px_6px_15px_rgba(0,0,0,0.08)] border border-gray-200 transition-all duration-300 hover:shadow-[0px_10px_30px_rgba(0,0,0,0.15)] hover:scale-[1.01]"
+                            >
+                              <div
+                                  className="flex items-center justify-center rounded-full bg-gradient-to-r from-green-500 to-green-700 shadow-md text-white"
+                                  style={{ width: "23px", height: "23px" }} // Tamaño exacto del icono
+                              >
+                                ✓
+                              </div>
+                              <span className="text-gray-800 font-medium text-lg leading-relaxed">{item}</span>
+                            </li>
+                        ))}
+                      </ul>
+                    </div>
+                )}
+
                 {day.image && (
                     <div className="relative w-full h-48 sm:h-56 rounded-lg overflow-hidden mt-4 shadow-md border border-gray-300">
                       <Image

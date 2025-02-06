@@ -97,6 +97,7 @@ export interface ITrip extends Document {
     name: string;
     description: string;
     photoUrl: string;
+    role: string;
   }[];
   additionalDetails: {
     travelStyle: string;
