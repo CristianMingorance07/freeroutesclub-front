@@ -7,7 +7,7 @@ export default function AboutUsPage() {
   return (
     <>
       <section className="relative flex min-h-dvh flex-col items-center justify-center pt-10 text-white lg:pt-0">
-        <div className="absolute top-0 h-full w-full justify-center bg-[url('/img/bg-about-us.jpeg')] bg-cover bg-no-repeat bg-center brightness-50 "></div>
+        <div className="absolute top-0 h-full w-full justify-center bg-[url('/img/bg-about-us.jpeg')] bg-cover bg-center bg-no-repeat brightness-50"></div>
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -35,11 +35,11 @@ export default function AboutUsPage() {
               className="h-44 w-full rounded-t-xl object-cover"
               alt="Dani"
             />
-            <div className="flex w-full flex-col items-center justify-between p-6">
+            <div className="flex h-full w-full flex-col items-center justify-start p-6">
               <h3 className="mb-4 text-3xl font-bold">Dani</h3>
-              <p className="mb-6 text-center text-sm leading-relaxed text-gray-700 sm:text-base">
-                Apasionado de las motos y la fotografía. Fundador de We Riders
-                Travel
+              <p className="text-center text-sm leading-relaxed text-gray-700 sm:text-base">
+                Aventurero por naturaleza, con un don especial para conectar con
+                las personas y garantizar un ambiente ameno.
               </p>
             </div>
           </div>
@@ -52,11 +52,11 @@ export default function AboutUsPage() {
               className="h-44 w-full rounded-t-xl object-cover"
               alt="Cristian"
             />
-            <div className="flex w-full flex-col items-center justify-between p-6">
+            <div className="flex h-full w-full flex-col items-center justify-start p-6">
               <h3 className="mb-4 text-3xl font-bold">Cristian</h3>
-              <p className="mb-6 text-center text-sm leading-relaxed text-gray-700 sm:text-base">
-                Apasionado de las motos y la fotografía. Fundador de We Riders
-                Travel
+              <p className="text-center text-sm leading-relaxed text-gray-700 sm:text-base">
+                Muy aventurero y hábil con las manos, siempre preparado para
+                solucionar cualquier inconveniente técnico.
               </p>
             </div>
           </div>
@@ -68,11 +68,11 @@ export default function AboutUsPage() {
               className="h-44 w-full rounded-t-xl object-cover"
               alt="Xavi"
             />
-            <div className="flex w-full flex-col items-center justify-between p-6">
+            <div className="flex h-full w-full flex-col items-center justify-start p-6">
               <h3 className="mb-4 text-3xl font-bold">Xavi</h3>
-              <p className="mb-6 text-center text-sm leading-relaxed text-gray-700 sm:text-base">
-                Apasionado de las motos y la fotografía. Fundador de We Riders
-                Travel
+              <p className="text-center text-sm leading-relaxed text-gray-700 sm:text-base">
+                Aventurero apasionado y un maestro en capturar los mejores
+                momentos con su cámara.
               </p>
             </div>
           </div>
