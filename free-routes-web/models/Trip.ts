@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, model, models } from 'mongoose';
+import mongoose, {Schema, Document, model, models} from "mongoose";
 
 export interface ITrip extends Document {
     _id: string;
@@ -38,6 +38,12 @@ export interface ITrip extends Document {
         description: string;
         included: string[];
         image: string;
+        details: {
+            morning?: string | undefined;
+            midday?: string | undefined;
+            afternoon?: string | undefined;
+            night?: string | undefined;
+        };
     }[];
     logistics: {
         fuelCost: number;
@@ -97,6 +103,7 @@ export interface ITrip extends Document {
         name: string;
         description: string;
         photoUrl: string;
+        role: string;
     }[];
     additionalDetails: {
         travelStyle: string;
@@ -140,178 +147,180 @@ export interface ITrip extends Document {
             category: string;
             images: string[];
         }[];
+        whatsappGroup: string;
     };
 }
 
 const TripSchema: Schema = new Schema(
     {
-        title: { type: String, required: true },
-        description: { type: String, required: true },
-        shortDescription: { type: String, required: true },
-        imageUrl: { type: String, required: true },
-        duration: { type: String, required: true },
-        price: { type: Number, required: true },
-        level: { type: String, required: true },
-        region: { type: String, required: true },
-        manager: { type: String, required: true },
-        images: { type: [String], required: true },
+        title: {type: String, required: true},
+        description: {type: String, required: true},
+        shortDescription: {type: String, required: true},
+        imageUrl: {type: String, required: true},
+        duration: {type: String, required: true},
+        price: {type: Number, required: true},
+        level: {type: String, required: true},
+        region: {type: String, required: true},
+        manager: {type: String, required: true},
+        images: {type: [String], required: true},
         availability: {
-            spotsLeft: { type: Number, required: true },
+            spotsLeft: {type: Number, required: true},
         },
         departure: {
-            date: { type: String, required: true },
-            time: { type: String, required: true },
+            date: {type: Date, required: true},
+            time: {type: String, required: true},
         },
         dates: {
-            start: { type: String, required: true },
-            end: { type: String, required: true },
+            start: {type: Date, required: true},
+            end: {type: Date, required: true},
         },
         benefits: [
             {
-                icon: { type: String, required: true },
-                title: { type: String, required: true },
-                description: { type: String, required: true },
+                icon: {type: String, required: true},
+                title: {type: String, required: true},
+                description: {type: String, required: true},
             },
         ],
         coordinates: {
-            lat: { type: Number, required: true },
-            lng: { type: Number, required: true },
+            lat: {type: Number, required: true},
+            lng: {type: Number, required: true},
         },
         itinerary: [
             {
-                day: { type: Number, required: true },
-                title: { type: String, required: true },
-                description: { type: String, required: true },
-                included: { type: [String], required: true },
-                image: { type: String, required: false },
+                day: {type: Number, required: true},
+                title: {type: String, required: true},
+                description: {type: String, required: true},
+                included: {type: [String], required: true},
+                image: {type: String, required: false},
             },
         ],
         logistics: {
-            fuelCost: { type: Number, required: true },
-            tolls: { type: Number, required: true },
+            fuelCost: {type: Number, required: true},
+            tolls: {type: Number, required: true},
             accommodationOptions: {
-                sharedRooms: { type: Number, required: true },
-                privateRooms: { type: Number, required: true },
+                sharedRooms: {type: Number, required: true},
+                privateRooms: {type: Number, required: true},
             },
-            mealsCost: { type: Number, required: true },
+            mealsCost: {type: Number, required: true},
             activities: [
                 {
-                    name: { type: String, required: true },
-                    cost: { type: Number, required: true },
+                    name: {type: String, required: true},
+                    cost: {type: Number, required: true},
                 },
             ],
         },
         promotions: {
-            isActive: { type: Boolean, required: true },
-            description: { type: String, required: true },
-            spots: { type: Number, required: true },
-            discount: { type: Number, required: true },
+            isActive: {type: Boolean, required: true},
+            description: {type: String, required: true},
+            spots: {type: Number, required: true},
+            discount: {type: Number, required: true},
         },
         reviews: [
             {
-                author: { type: String, required: true },
-                rating: { type: Number, required: true },
-                comment: { type: String, required: true },
+                author: {type: String, required: true},
+                rating: {type: Number, required: true},
+                comment: {type: String, required: true},
             },
         ],
-        inclusions: { type: [String], required: true },
-        checklist: { type: [String], required: true },
+        inclusions: {type: [String], required: true},
+        checklist: {type: [String], required: true},
         faq: [
             {
-                question: { type: String, required: true },
-                answer: { type: String, required: true },
+                question: {type: String, required: true},
+                answer: {type: String, required: true},
             },
         ],
         testimonials: [
             {
-                name: { type: String, required: true },
-                message: { type: String, required: true },
+                name: {type: String, required: true},
+                message: {type: String, required: true},
             },
         ],
-        acceptedBikes: { type: [String], required: true },
-        minEngineCapacity: { type: Number, required: true },
+        acceptedBikes: {type: [String], required: true},
+        minEngineCapacity: {type: Number, required: true},
         sections: [
             {
-                id: { type: String, required: true },
-                title: { type: String, required: true },
+                id: {type: String, required: true},
+                title: {type: String, required: true},
                 content: {
-                    paragraphs: { type: [String], required: false },
-                    list: { type: [String], required: false },
+                    paragraphs: {type: [String], required: false},
+                    list: {type: [String], required: false},
                 },
-                images: { type: [String], required: false },
+                images: {type: [String], required: false},
                 subsections: [
                     {
-                        id: { type: String, required: true },
-                        title: { type: String, required: true },
+                        id: {type: String, required: true},
+                        title: {type: String, required: true},
                         content: {
-                            paragraphs: { type: [String], required: false },
-                            list: { type: [String], required: false },
+                            paragraphs: {type: [String], required: false},
+                            list: {type: [String], required: false},
                         },
-                        images: { type: [String], required: false },
+                        images: {type: [String], required: false},
                     },
                 ],
             },
         ],
         coordinators: [
             {
-                name: { type: String, required: true },
-                description: { type: String, required: true },
-                photoUrl: { type: String, required: true },
+                name: {type: String, required: true},
+                description: {type: String, required: true},
+                photoUrl: {type: String, required: true},
             },
         ],
         additionalDetails: {
-            travelStyle: { type: String, required: true },
-            routeDynamics: { type: String, required: true },
+            travelStyle: {type: String, required: true},
+            routeDynamics: {type: String, required: true},
             experienceIndicators: {
-                fun: { type: Number, required: true },
-                difficulty: { type: Number, required: true },
-                scenery: { type: Number, required: true },
-                culture: { type: Number, required: true },
-                gastronomy: { type: Number, required: true },
+                fun: {type: Number, required: true},
+                difficulty: {type: Number, required: true},
+                scenery: {type: Number, required: true},
+                culture: {type: Number, required: true},
+                gastronomy: {type: Number, required: true},
             },
             equipmentRecommended: {
-                mandatory: { type: [String], required: true },
-                optional: { type: [String], required: false },
+                mandatory: {type: [String], required: true},
+                optional: {type: [String], required: false},
             },
             detailedCosts: {
-                transport: { type: Number, required: true },
-                accommodation: { type: Number, required: true },
-                meals: { type: Number, required: true },
-                activities: { type: Number, required: true },
-                baseCost: { type: Number, required: true },
+                transport: {type: Number, required: true},
+                accommodation: {type: Number, required: true},
+                meals: {type: Number, required: true},
+                activities: {type: Number, required: true},
+                baseCost: {type: Number, required: true},
                 margin: [
                     {
-                        percentage: { type: Number, required: true },
-                        total: { type: Number, required: true },
+                        percentage: {type: Number, required: true},
+                        total: {type: Number, required: true},
                     },
                 ],
             },
-            routeMapLink: { type: String, required: true },
+            routeMapLink: {type: String, required: true},
             pointsOfInterest: [
                 {
-                    name: { type: String, required: true },
-                    description: { type: String, required: true },
+                    name: {type: String, required: true},
+                    description: {type: String, required: true},
                     coordinates: {
-                        lat: { type: Number, required: true },
-                        lng: { type: Number, required: true },
+                        lat: {type: Number, required: true},
+                        lng: {type: Number, required: true},
                     },
                 },
             ],
             loyaltyProgram: {
-                description: { type: String, required: true },
-                benefits: { type: [String], required: true },
+                description: {type: String, required: true},
+                benefits: {type: [String], required: true},
             },
             gallery: [
                 {
-                    category: { type: String, required: true },
-                    images: { type: [String], required: true },
+                    category: {type: String, required: true},
+                    images: {type: [String], required: true},
                 },
             ],
+            whatsappGroup: {type: String, required: true},
         },
     },
-    { timestamps: true }
+    {timestamps: true},
 );
 
-const Trip = models.Trip || model<ITrip>('Trip', TripSchema);
+const Trip = models.Trip || model<ITrip>("Trip", TripSchema);
 
 export default Trip;

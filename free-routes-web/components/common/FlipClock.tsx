@@ -32,7 +32,13 @@ export default function FlipClock({
 
 function calculateTimeDifference(departure: { date: string; time: string }) {
   const now = new Date();
-  const targetDate = new Date(`${departure.date}T${departure.time}`);
+
+  const departureDate = new Date(departure.date);
+  const [hours, minutes] = departure.time.split(":");
+
+  const targetDate = new Date(departureDate);
+  targetDate.setHours(parseInt(hours), parseInt(minutes), 0);
+
   const difference = targetDate.getTime() - now.getTime();
 
   if (difference > 0) {

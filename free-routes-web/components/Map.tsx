@@ -1,18 +1,27 @@
-'use client'
+import { useEffect } from 'react';
+import dynamic from 'next/dynamic';
 
-import {MapContainer, Marker, TileLayer} from 'react-leaflet'
-import 'leaflet/dist/leaflet.css'
-import {useEffect} from 'react'
+const MapContainer = dynamic(() => import('react-leaflet').then(mod => mod.MapContainer), {
+    ssr: false
+});
+const Marker = dynamic(() => import('react-leaflet').then(mod => mod.Marker), {
+    ssr: false
+});
+const TileLayer = dynamic(() => import('react-leaflet').then(mod => mod.TileLayer), {
+    ssr: false
+});
 
 export default function Map({ position }: { position: [number, number] }) {
     useEffect(() => {
-        return () => {
-            const container = document.querySelector('.leaflet-container')
-            if (container?.classList.contains('leaflet-container')) {
-                container.remove()
-            }
+        if (typeof window !== 'undefined') {
+            return () => {
+                const container = document?.querySelector('.leaflet-container');
+                if (container?.classList.contains('leaflet-container')) {
+                    container.remove();
+                }
+            };
         }
-    }, [])
+    }, [position]);
 
     return (
         <div key={position.toString()} className="relative">
@@ -28,5 +37,5 @@ export default function Map({ position }: { position: [number, number] }) {
                 <Marker position={position} />
             </MapContainer>
         </div>
-    )
+    );
 }
