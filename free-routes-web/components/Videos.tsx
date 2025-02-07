@@ -27,19 +27,16 @@ const Videos: React.FC = () => {
         behavior: "smooth",
       });
 
-      // Loop effect
       if (
         direction === "right" &&
         carouselRef.current.scrollLeft + carouselRef.current.clientWidth >=
           carouselRef.current.scrollWidth - 1
       ) {
         carouselRef.current.scrollTo({ left: 0, behavior: "smooth" });
-      } else if (
-        direction === "left" &&
-        carouselRef.current.scrollLeft <= 0
-      ) {
+      } else if (direction === "left" && carouselRef.current.scrollLeft <= 0) {
         carouselRef.current.scrollTo({
-          left: carouselRef.current.scrollWidth - carouselRef.current.clientWidth,
+          left:
+            carouselRef.current.scrollWidth - carouselRef.current.clientWidth,
           behavior: "smooth",
         });
       }
@@ -55,7 +52,16 @@ const Videos: React.FC = () => {
           { src: "/videos/03.mp4" },
           { src: "/videos/04.mp4" },
         ];
-        setVideos(videoFiles);
+        const shuffleArray = (array: VideoProps[]) => {
+          for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+          }
+          return array;
+        };
+
+        const shuffledVideos = shuffleArray(videoFiles);
+        setVideos(shuffledVideos);
       } catch (error) {
         console.error("Error fetching videos:", error);
       } finally {
@@ -80,7 +86,7 @@ const Videos: React.FC = () => {
       },
       {
         threshold: 0.6,
-      }
+      },
     );
 
     videoRefs.current.forEach((video) => {
@@ -98,20 +104,6 @@ const Videos: React.FC = () => {
     };
   }, [videos]);
 
-  const handleMouseEnter = (index: number) => {
-    setHoveredIndex(index);
-    if (videoRefs.current[index]) {
-      videoRefs.current[index].pause();
-    }
-  };
-
-  const handleMouseLeave = (index: number) => {
-    setHoveredIndex(null);
-    if (videoRefs.current[index]) {
-      videoRefs.current[index].play();
-    }
-  };
-
   return (
     <div className="relative">
       <div className="flex items-center justify-center">
@@ -122,7 +114,7 @@ const Videos: React.FC = () => {
         >
           <CiCircleChevLeft
             className={`size-10 rounded-full transition-colors ${
-              canScrollLeft ? "text-black" : "text-gray-600"
+              canScrollLeft ? "text-white" : "text-gray-600"
             }`}
           />
         </button>
@@ -130,7 +122,7 @@ const Videos: React.FC = () => {
         <div
           id="carrousel"
           ref={carouselRef}
-          className="no-scrollbar flex max-w-96 sm:max-w-screen-sm lg:max-w-screen-lg gap-4 overflow-x-scroll"
+          className="no-scrollbar flex max-w-96 gap-4 overflow-x-scroll sm:max-w-screen-sm lg:max-w-screen-lg"
         >
           {loading ? (
             <div>Loading videos...</div>
@@ -146,9 +138,7 @@ const Videos: React.FC = () => {
                 src={video.src}
                 muted
                 loop
-                className="aspect-[9/16] w-96 rounded-lg object-cover shadow-md"
-                onMouseEnter={() => handleMouseEnter(index)}
-                onMouseLeave={() => handleMouseLeave(index)}
+                className="aspect-[9/16] w-96 rounded-lg object-cover shadow-lg"
               />
             ))
           )}
@@ -160,7 +150,7 @@ const Videos: React.FC = () => {
         >
           <CiCircleChevRight
             className={`size-10 rounded-full transition-colors ${
-              canScrollRight ? "text-black" : "text-gray-600"
+              canScrollRight ? "text-white" : "text-gray-600"
             }`}
           />
         </button>

@@ -20,28 +20,21 @@ export default function Page() {
         </div>
       </section>
       <section className="bg-gray-100 py-16">
-        <h3 className="mx-auto mb-4 text-center text-3xl font-bold">
-          ¿Qué hacen nuestros riders?
-        </h3>
-        <Videos />
-      </section>
-      <section className="bg-gray-100 py-16">
         <div className="container mx-auto px-4">
-          <h3 className="mb-12 text-center text-3xl font-bold">
+          <h3 className="mb-4 text-center text-3xl font-bold">
             Aventuras para recordar
           </h3>
-          <p className="mx-auto mb-12 max-w-2xl text-center text-lg text-gray-600">
-            Embárcate en un viaje repleto de emoción sobre dos ruedas. Conoce a
-            nuevos amigos, comparte rutas sorprendentes y descubre la libertad
-            de rodar sin límites.
+          <p className="mx-auto mb-6 max-w-2xl text-center text-lg text-gray-600">
+            Embárcate en un viaje repleto de emoción sobre dos ruedas. Conoce
+            conoce a más amantes del motor, comparte rutas sorprendentes y
+            descubre la libertad de rodar sin límites.
           </p>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
             <div className="flex flex-col items-center rounded-lg bg-white p-6 text-center shadow-md">
               <FaMapMarkedAlt className="mb-4 text-4xl text-[#ED0874]" />
               <h4 className="mb-2 text-xl font-semibold">Rutas Impactantes</h4>
               <p className="text-gray-600">
-                Admira paisajes inigualables y sumérgete en la verdadera esencia
-                de cada destino.
+                Nuestras rutas gran incluyen gran variedad de destinos ¡seguro que encuentras tu favorita!
               </p>
             </div>
             <div className="flex flex-col items-center rounded-lg bg-white p-6 text-center shadow-md">
@@ -50,8 +43,7 @@ export default function Page() {
                 Aventura Sin Límites
               </h4>
               <p className="text-gray-600">
-                Explora carreteras y caminos ocultos en motocicleta, cargados de
-                adrenalina y sorpresas.
+                Hacemos rutas on y off-road por los lugares más impresionantes.
               </p>
             </div>
             <div className="flex flex-col items-center rounded-lg bg-white p-6 text-center shadow-md">
@@ -60,20 +52,27 @@ export default function Page() {
                 Jornadas Inolvidables
               </h4>
               <p className="text-gray-600">
-                Disfruta de múltiples días y noches llenas de diversión,
-                compañerismo y paisajes únicos.
+                Tenemos planes diversos para todo el día, solo nos falta tu compañía.
               </p>
             </div>
             <div className="flex flex-col items-center rounded-lg bg-white p-6 text-center shadow-md">
               <FaUsers className="mb-4 text-4xl text-[#ED0874]" />
               <h4 className="mb-2 text-xl font-semibold">Comunidad Única</h4>
               <p className="text-gray-600">
-                Conecta con otros amantes de la aventura y crea recuerdos que
-                durarán toda la vida.
+                Nuestra comunidad es diversa y acogedora, ¡te sentirás como en casa!
               </p>
             </div>
           </div>
         </div>
+      </section>
+      <section className="bg-[#0F172A] py-16 text-white">
+        <h3 className="mb-4 text-center text-3xl font-bold">
+          ¿Qué hacen nuestros riders?
+        </h3>
+        <p className="mb-6 text-center">
+          Conecta con la comunidad y vive experiencias como estas:
+        </p>
+        <Videos />
       </section>
     </>
   );
