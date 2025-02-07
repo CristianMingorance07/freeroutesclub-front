@@ -1,5 +1,6 @@
 import { FaMapMarkedAlt, FaMotorcycle, FaClock, FaUsers } from "react-icons/fa";
 import Cta from "@/components/common/Cta";
+import Videos from "@/components/Videos";
 
 export default function Page() {
   return (
@@ -17,6 +18,12 @@ export default function Page() {
             <Cta href={"/trips"} text={"Explora nuestras rutas"} />
           </div>
         </div>
+      </section>
+      <section className="bg-gray-100 py-16">
+        <h3 className="mx-auto mb-4 text-center text-3xl font-bold">
+          ¿Qué hacen nuestros riders?
+        </h3>
+        <Videos />
       </section>
       <section className="bg-gray-100 py-16">
         <div className="container mx-auto px-4">
