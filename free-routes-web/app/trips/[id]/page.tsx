@@ -358,6 +358,8 @@ export default function TripDetailPage() {
                 >
                   <div className="relative h-40 w-40 overflow-hidden rounded-full border-2 border-gray-200 shadow-md sm:h-48 sm:w-48">
                     <Image
+                      width={200}
+                      height={200}
                       src={coordinator.photoUrl}
                       alt={coordinator.name}
                       className="h-full w-full object-cover"
