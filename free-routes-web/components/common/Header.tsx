@@ -47,7 +47,7 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 z-50 w-dvw transition duration-300 ${isScrolled ? "border-b border-gray-200 bg-white/80 text-gray-700" : "border-none bg-transparent text-white"} p-4 font-bold`}
+      className={`fixed top-0 z-[9000] w-dvw transition duration-300 ${isScrolled ? "border-b border-gray-200 bg-white/80 text-gray-700" : "border-none bg-transparent text-white"} p-4 font-bold`}
     >
       <div className="container flex w-full items-center justify-between sm:mx-auto lg:max-w-6xl">
         <div className="text-xl font-bold">
