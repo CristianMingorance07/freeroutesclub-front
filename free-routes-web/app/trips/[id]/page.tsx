@@ -12,6 +12,7 @@ import ItineraryDayDetails from "@/components/ItineraryDayDetails";
 import Loader from "@/components/common/Loader";
 import ResettableMap from "@/components/ResettableMap";
 import Cta from "@/components/common/Cta";
+import Image from "next/image";
 
 export default function TripDetailPage() {
   const { id: tripId } = useParams();
@@ -356,7 +357,7 @@ export default function TripDetailPage() {
                   className="relative flex flex-col items-center rounded-xl border border-gray-200 bg-white p-8 shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-lg"
                 >
                   <div className="relative h-40 w-40 overflow-hidden rounded-full border-2 border-gray-200 shadow-md sm:h-48 sm:w-48">
-                    <img
+                    <Image
                       src={coordinator.photoUrl}
                       alt={coordinator.name}
                       className="h-full w-full object-cover"
