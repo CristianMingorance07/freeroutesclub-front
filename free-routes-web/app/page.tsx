@@ -6,7 +6,7 @@ export default function Page() {
   return (
     <>
       <section className="relative flex h-[80vh] flex-col items-center justify-center text-white">
-        <div className="absolute top-0 h-full w-full justify-center bg-[url('/img/bg-routes.png')] bg-cover bg-center bg-no-repeat brightness-50"></div>
+        <div className="absolute top-0 h-full w-full justify-center bg-[url('/img/bg-routes-mobile.png')] sm:bg-[url('/img/bg-routes-c.png')] bg-cover bg-center bg-no-repeat brightness-50"></div>
         <div className="z-10 p-8 text-center">
           <h2 className="mb-4 text-4xl font-bold sm:text-5xl 2xl:text-7xl">
             WE RIDERS TRAVEL
