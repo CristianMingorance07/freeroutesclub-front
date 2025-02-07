@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect } from "react";
 import { CiCircleChevLeft, CiCircleChevRight } from "react-icons/ci";
 
 interface VideoProps {
@@ -9,11 +9,8 @@ interface VideoProps {
 
 const Videos: React.FC = () => {
   const [videos, setVideos] = useState<VideoProps[]>([]);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const carouselRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(true);
-  const [canScrollRight, setCanScrollRight] = useState(true);
   const videoRefs = useRef<HTMLVideoElement[]>([]);
 
   const handleScroll = (direction: "left" | "right") => {
@@ -89,14 +86,16 @@ const Videos: React.FC = () => {
       },
     );
 
-    videoRefs.current.forEach((video) => {
+    const currentVideoRefs = videoRefs.current; // Create a local copy to avoid stale closures
+
+    currentVideoRefs.forEach((video) => {
       if (video) {
         observer.observe(video);
       }
     });
 
     return () => {
-      videoRefs.current.forEach((video) => {
+      currentVideoRefs.forEach((video) => {
         if (video) {
           observer.unobserve(video);
         }
@@ -108,15 +107,10 @@ const Videos: React.FC = () => {
     <div className="relative">
       <div className="flex items-center justify-center">
         <button
-          className={`mr-4 ${!canScrollLeft && "cursor-default"}`}
+          className="mr-4 cursor-default"
           onClick={() => handleScroll("left")}
-          disabled={!canScrollLeft}
         >
-          <CiCircleChevLeft
-            className={`size-10 rounded-full transition-colors ${
-              canScrollLeft ? "text-white" : "text-gray-600"
-            }`}
-          />
+          <CiCircleChevLeft className="size-10 cursor-pointer rounded-full text-white" />
         </button>
 
         <div
@@ -144,15 +138,10 @@ const Videos: React.FC = () => {
           )}
         </div>
         <button
-          className={`ml-4 ${!canScrollRight && "cursor-default"}`}
+          className="ml-4 cursor-default"
           onClick={() => handleScroll("right")}
-          disabled={!canScrollRight}
         >
-          <CiCircleChevRight
-            className={`size-10 rounded-full transition-colors ${
-              canScrollRight ? "text-white" : "text-gray-600"
-            }`}
-          />
+          <CiCircleChevRight className="size-10 cursor-pointer rounded-full text-white" />
         </button>
       </div>
     </div>
